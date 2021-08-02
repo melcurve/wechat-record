@@ -1,0 +1,25 @@
+@import "/styles/common.wxss";
+.media-uploader {
+  flex-wrap: wrap;
+}
+.media-uploader .item {
+  width: 124rpx;
+  height: 124rpx;
+  overflow: hidden;
+  border: var(--border-xs);
+  border-radius: var(--border-radius-sm);
+}
+.media-uploader .item:nth-child(5n) {
+  margin-right: 0;
+}
+.media-uploader .item .image,
+.media-uploader .item .add-button {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-skeleton);
+}
+.media-uploader .item .add-button {
+  text-align: center;
+  line-height: 124rpx;
+  color: var(--color-grey-dark);
+}

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "chat-list": "./components/chat-list/chat-list",
+    "contact-list": "./components/contact-list/contact-list",
+    "discovery": "./components/discovery/discovery",
+    "my": "./components/my/my"
+  },
+  "disableScroll": true
+}

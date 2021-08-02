@@ -1,0 +1,19 @@
+@import "/styles/common.wxss";
+.tool-box-button {
+  width: 100rpx;
+  height: auto;
+  position: fixed;
+  z-index: var(--index-tab-bar);
+  right: 32rpx;
+  bottom: calc(64rpx + var(--sb));
+  transition: transform 0.2s;
+}
+.tool-box-button.space-fix {
+  bottom: calc(172rpx + var(--sb));
+}
+.tool-box-button:active {
+  transform: scale(0.94);
+}
+.tool-box-button.hide {
+  transform: translateX(132%);
+}

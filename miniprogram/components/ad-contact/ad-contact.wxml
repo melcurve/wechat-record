@@ -1,0 +1,3 @@
+<!--components/ad-contact/ad-contact.wxml-->
+
+<image class="ad-contact" src="/images/ad_contact.png" mode="widthFix" bindtap="copy" />

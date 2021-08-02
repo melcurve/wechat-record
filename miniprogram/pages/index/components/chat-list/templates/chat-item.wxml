@@ -1,0 +1,26 @@
+<template name="chat-item">
+  <view class="chat-item flex-row justify-start {{item.top==1?'top':''}}" data-item="{{item}}" data-index="{{index}}"
+    bindtap="toChatDetail" bindlongpress="showChatMenu">
+
+    <!-- 头像和红点数 -->
+    <view class="header-block">
+      <image class="header" src="{{item.header}}" mode="aspectFill" />
+      <view wx:if="{{item.badge||item.badge===0}}"
+        class="badge {{item.badge==0?'mini':''}} {{item.badge>=10?'large':''}}">
+        {{item.badge&&item.badge!=0?item.badge:''}}</view>
+    </view>
+
+    <!-- 用户名和聊天快照 -->
+    <view class="info-block">
+      <view class="name multiple-line line1 {{item.isServiceAccount==1?'blue':''}}">{{item.name}}</view>
+      <view class="content multiple-line line1"><span class="tag" wx:if="{{item.tag}}">[{{item.tag}}]
+        </span>{{item.content}}</view>
+    </view>
+
+    <!-- 时间和其他 -->
+    <view class="date-block">
+      <view class="date">{{item.displayDate}}</view>
+    </view>
+
+  </view>
+</template>

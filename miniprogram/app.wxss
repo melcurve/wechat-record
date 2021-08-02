@@ -1,0 +1,70 @@
+/**app.wxss**/
+@import "./styles/common.wxss";
+
+page {
+  /* css变量 */
+  --color-primary: #03C160;
+  --color-subtitle: #a3a3a3;
+  --color-grey: #EDEDED;
+  --color-grey-dark: #585858;
+  --color-grey-light: #F9F9F9;
+  --color-skeleton: #F7F7F7;
+  --color-placeholder: #808080;
+  --st: env(safe-area-inset-top);
+  --sb: env(safe-area-inset-bottom);
+
+  --index-background: -1;
+  --index-default: 0;
+
+  --index-nav-bar: 50;
+  --index-tab-bar: 50;
+
+  --index-popup: 100;
+  --index-shade: 101;
+  --index-popup-content: 102;
+  --index-popup-title-block: 103;
+
+  --index-topest: 2147483647;
+
+  --border-xs: solid #DEDEDE 0.5px;
+  --border-sm: solid #DEDEDE 1px;
+
+  --border-radius-base: 4rpx;
+  --border-radius-xs: var(--border-radius-base);
+  --border-radius-sm: calc(var(--border-radius-base) + 2rpx);
+  --border-radius-md: calc(var(--border-radius-base) + 4rpx);
+
+  --default-header: "data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/wgALCACEAIQBAREA/8QAGwABAAIDAQEAAAAAAAAAAAAAAAUGAgMEAQj/2gAIAQEAAAAA+lwAAAAAAAAAAAHPW9ExNgAVmPLX1gAqPOWOTABX4llbd4AMKhrnJoADgrWMjYdgA54GPG2blfQFN1gT0wAhsQO/sAAAAAAAAAAAB//EADQQAAIBAQMHCgYDAAAAAAAAAAECAwQABRESFSEwZKPhBhAgIjFBUVJhcRMUQmCBwSMy0f/aAAgBAQABPwD7KrapKSAyPpPcvibVNdUVDYvIQvlXQLJI6HFHZT6G113qxcRVJBx0B/8Addfc5lrWX6Y+qP30LqnM9DGzaWHVOtvAFa6oB856HJ8EUR9XP61t/wBMVmFQv9X0H3540Z3CICWOgWo4RT0scXlGn31ssazRNG4xRrTx/Bmkj7chivNyep1yXqDpbHJX011deUVMGVCHl8o7vezsXdnbSzHE8101/wAoWSQYxNp9jaGWOZMuJg6+mrqqqKlTKlbT3L3m1bek1Riqfxx+A7T+ejBPJA+XC5U2ob3STqVOCP5vp4aqaV5pWkkJLHUcnZXeKaNmJVMMPzjqXuNS5KTlV8MnjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vja7qFaJHAcuz9p7Psn/2Q=="
+}
+
+view,
+text,
+span,
+button,
+scroll-view,
+checkbox,
+checkbox-group,
+radio-group,
+form,
+label,
+swiper,
+swiper-item,
+text,
+navigator,
+input,
+textarea {
+  box-sizing: border-box;
+}
+
+radio-group,
+checkbox-group {
+  flex-wrap: wrap;
+}
+
+button {
+  margin: 0;
+}
+
+image {
+  display: block;
+}

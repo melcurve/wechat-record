@@ -1,0 +1,4 @@
+@import 'templates/chat-item.wxss';
+.main {
+  background-color: white;
+}

@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<chat-list wx:if="{{tabIndex==0}}" bind:refreshBadge="refreshBadge"></chat-list>
+<contact-list wx:if="{{tabIndex==1}}"></contact-list>
+<discovery wx:if="{{tabIndex==2}}"></discovery>
+<my wx:if="{{tabIndex==3}}"></my>
+
+<tab-bar id="tabBar" tabIndex="{{tabIndex}}" bind:switchTab="switchTab"></tab-bar>

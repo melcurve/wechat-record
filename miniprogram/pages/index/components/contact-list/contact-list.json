@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "search-bar": "/components/search-bar/search-bar",
+    "ad-contact": "/components/ad-contact/ad-contact"
+  }
+}

@@ -1,0 +1,46 @@
+@import '/styles/common.wxss';
+.nav-bar {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--index-tab-bar);
+}
+.nav-bar.bg {
+  background-color: var(--color-grey);
+}
+.nav-bar.bg.border {
+  border-bottom: var(--border-xs);
+}
+.nav-bar .title-bar {
+  height: 88rpx;
+  position: relative;
+}
+.nav-bar .title-bar .back {
+  width: 20rpx;
+  height: auto;
+  position: absolute;
+  left: 0;
+  padding: 26rpx 32rpx;
+}
+.nav-bar .title-bar .badge {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  position: absolute;
+  left: 64rpx;
+  top: 20rpx;
+  font-size: 28rpx;
+  color: #151515;
+  background-color: #D5D5D5;
+}
+.nav-bar .title-bar .badge.large {
+  width: auto;
+  padding: 0 16rpx;
+  border-radius: 48rpx;
+}
+.nav-bar .title-bar .title {
+  line-height: 88rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}

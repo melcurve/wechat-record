@@ -1,0 +1,21 @@
+<!--pages/index/components/my/my.wxml-->
+
+<nav-bar title="{{title}}"></nav-bar>
+
+<scroll-view scroll-y enable-back-to-top enhanced class="main">
+
+  <view class="theme-wrapper flex-column align-end">
+    <view wx:for="{{themeList}}" wx:key="index" class="theme-item mb-xl {{item.active?'active':''}}"
+      data-key="{{index}}" bindtap="handleChangeTheme">
+      <image class="icon" src="/images/theme/{{index}}.png" mode="aspectFill" />
+      <view class="info-block">
+        <view class="name">{{item.name}}</view>
+        <view class="author">{{item.author}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-bar-blank" />
+</scroll-view>
+
+<ad-contact></ad-contact>

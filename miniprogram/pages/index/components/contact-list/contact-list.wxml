@@ -1,0 +1,4 @@
+<!--pages/index/components/contact-list/contact-list.wxml-->
+<nav-bar title="{{title}}"></nav-bar>
+<search-bar></search-bar>
+<ad-contact></ad-contact>

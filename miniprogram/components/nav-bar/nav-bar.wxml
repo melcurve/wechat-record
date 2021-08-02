@@ -1,0 +1,11 @@
+<!--components/nav-bar/nav-bar.wxml-->
+<view class="nav-bar {{border?'border':''}} {{bg?'bg':''}}">
+  <view class="status-bar-space" style="height:{{SBH}}px" />
+  <view class="title-bar flex-row justify-center" bindlongpress="longpress">
+    <image wx:if="{{back}}" class="back" src="/images/ic_nav_back.png" mode="widthFix" bindtap="handleBack" />
+    <view wx:if="{{badge}}" class="badge {{badge>=10?'large':''}}">{{badge}}</view>
+    <view class="title">{{title}}</view>
+  </view>
+</view>
+
+<view wx:if="{{blank}}" class="nav-bar-blank" style="height:calc({{SBH}}px + 88rpx)" />

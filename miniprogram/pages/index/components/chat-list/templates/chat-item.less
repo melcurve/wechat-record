@@ -1,0 +1,91 @@
+@import (css) "/styles/common.wxss";
+
+.chat-item {
+  @headerSize: 96rpx;
+  position: relative;
+  padding: 24rpx 32rpx;
+  background-color: white;
+
+  &:active {
+    background-color: #E5E5E5;
+  }
+
+  &.top {
+    background-color: #F7F7F7;
+
+    &:active {
+      background-color: #DEDEDE;
+    }
+  }
+
+  &::after {
+    content: '';
+    width: calc(100% - (32rpx + @headerSize + 24rpx));
+    height: 1rpx;
+    background-color: #E5E5E5;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  .header-block {
+    width: @headerSize;
+    height: @headerSize;
+    flex-shrink: 0;
+    margin-right: 24rpx;
+    position: relative;
+
+    .header {
+      width: 100%;
+      height: 100%;
+      border-radius: 12rpx;
+      background-image: url("data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/wgALCACEAIQBAREA/8QAGwABAAIDAQEAAAAAAAAAAAAAAAUGAgMEAQj/2gAIAQEAAAAA+lwAAAAAAAAAAAHPW9ExNgAVmPLX1gAqPOWOTABX4llbd4AMKhrnJoADgrWMjYdgA54GPG2blfQFN1gT0wAhsQO/sAAAAAAAAAAAB//EADQQAAIBAQMHCgYDAAAAAAAAAAECAwQABRESFSEwZKPhBhAgIjFBUVJhcRMUQmCBwSMy0f/aAAgBAQABPwD7KrapKSAyPpPcvibVNdUVDYvIQvlXQLJI6HFHZT6G113qxcRVJBx0B/8Addfc5lrWX6Y+qP30LqnM9DGzaWHVOtvAFa6oB856HJ8EUR9XP61t/wBMVmFQv9X0H3540Z3CICWOgWo4RT0scXlGn31ssazRNG4xRrTx/Bmkj7chivNyep1yXqDpbHJX011deUVMGVCHl8o7vezsXdnbSzHE8101/wAoWSQYxNp9jaGWOZMuJg6+mrqqqKlTKlbT3L3m1bek1Riqfxx+A7T+ejBPJA+XC5U2ob3STqVOCP5vp4aqaV5pWkkJLHUcnZXeKaNmJVMMPzjqXuNS5KTlV8MnjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vja7qFaJHAcuz9p7Psn/2Q==");
+      background-size: cover;
+    }
+
+    .badge {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translate(14rpx, -14rpx);
+
+      &.mini {
+        transform: translate(6rpx, -6rpx);
+      }
+    }
+  }
+
+  .info-block {
+    width: 100%;
+    padding-top: 4rpx;
+
+    .name {
+      font-size: 32rpx;
+      color: #191919;
+      margin-bottom: 6rpx;
+
+      &.blue {
+        color: #576B94;
+      }
+    }
+
+    .content {
+      font-size: 30rpx;
+      color: #B3B3B3;
+
+      .tag {
+        color: #FA5051;
+      }
+    }
+  }
+
+  .date-block {
+    flex-shrink: 0;
+    padding-left: 6rpx;
+
+    .date {
+      font-size: 26rpx;
+      color: #CCCCCC;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "subPack-a/pages/chat-detail/chat-detail",
+          "pathName": "subPack-a/pages/chat-detail/chat-detail",
+          "query": "id=23169a6cb61a2d915e897aa965297e01",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

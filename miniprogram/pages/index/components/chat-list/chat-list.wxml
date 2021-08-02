@@ -1,0 +1,27 @@
+<!--pages/index/components/chat-list/chat-list.wxml-->
+<import src="./templates/chat-item.wxml" />
+
+<!-- 标题栏 -->
+<nav-bar title="{{title}}" bind:longpress="showToolBox"></nav-bar>
+<tool-box id="toolBox" visible="{{$showToolBox}}" spaceFix bind:change="handleToolBoxChange"></tool-box>
+
+<!-- <image style="width:100%;height:auto;position:absolute;top:0;lef:0;z-index:-1" src="/images/fake1.png"
+  mode="widthFix" /> -->
+
+<scroll-view scroll-y enable-back-to-top enhanced class="main">
+  <search-bar></search-bar>
+
+  <!-- 置顶聊天 -->
+  <view class="chat-list top">
+    <template wx:for="{{chatList}}" wx:if="{{item.top}}" wx:key="id" is="chat-item"
+      data="{{item:item,index:index}}"></template>
+  </view>
+
+  <!-- 普通聊天 -->
+  <view class="chat-list">
+    <template wx:for="{{chatList}}" wx:if="{{!item.top}}" wx:key="id" is="chat-item"
+      data="{{item:item,index:index}}"></template>
+  </view>
+
+  <view class="tab-bar-blank" />
+</scroll-view>

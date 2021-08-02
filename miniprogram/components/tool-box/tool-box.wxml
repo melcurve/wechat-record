@@ -1,0 +1,28 @@
+<!--components/tool-box/tool-box.wxml-->
+<image class="tool-box-button {{visible?'':'hide'}} {{spaceFix?'space-fix':''}}" src="/images/ic_toolbox.svg"
+  mode="widthFix" bindtap="showAction" />
+
+<popup visible="{{$showChatListPopup}}" title="添加聊天" bind:confirm="handleAddChat" bind:close="handleClosePopup">
+  <sf wx:if="{{$showChatListPopup}}" id="chatListSF" schema="{{chatListSchema}}"></sf>
+</popup>
+
+<popup visible="{{$showChatDetailPopup}}" title="添加聊天" bind:confirm="handleAddChatDetail" bind:close="handleClosePopup">
+  <sf wx:if="{{$showChatDetailPopup}}" id="chatDetailSF" schema="{{chatDetailSchema}}"></sf>
+</popup>
+
+<popup visible="{{$showEditChatPopup}}" title="聊天窗口设置" bind:confirm="handleEditChat" bind:close="handleClosePopup">
+  <sf wx:if="{{$showEditChatPopup}}" id="editChatSF" schema="{{editChatSchema}}"></sf>
+</popup>
+
+<popup visible="{{$showDiscoveryPopup}}" title="发现页设置" bind:confirm="handleDiscovery" bind:close="handleClosePopup">
+  <sf wx:if="{{$showDiscoveryPopup}}" id="discoverySF" schema="{{discoverySchema}}"></sf>
+</popup>
+
+<popup visible="{{$showFriendCirclePopup}}" title="朋友圈设置" bind:confirm="handleFriendCircle"
+  bind:close="handleClosePopup">
+  <sf wx:if="{{$showFriendCirclePopup}}" id="friendCircleSF" schema="{{friendCircleSchema}}"></sf>
+</popup>
+
+<popup visible="{{$showDynamicPopup}}" title="添加动态" bind:confirm="handleDynamic" bind:close="handleClosePopup">
+  <sf wx:if="{{$showDynamicPopup}}" id="dynamicSF" schema="{{dynamicSchema}}"></sf>
+</popup>

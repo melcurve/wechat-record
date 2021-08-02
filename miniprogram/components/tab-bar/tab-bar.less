@@ -1,0 +1,60 @@
+@import (css) '/styles/common.wxss';
+
+.tab-bar {
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: var(--index-tab-bar);
+  background-color: var(--color-grey-light);
+
+  .tab-block {
+    padding: 22rpx 0 10rpx;
+
+    .tab-item {
+      width: 25%;
+      position: relative;
+
+      .badge {
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translate(-18rpx, -12rpx);
+      }
+
+      .icon {
+        width: 52rpx;
+        height: 52rpx;
+        margin-bottom: 4rpx;
+
+        &.active {
+          display: none;
+        }
+      }
+
+      .name {
+        font-size: 20rpx;
+        color: #191919;
+      }
+
+      &.active {
+        .icon {
+          display: none;
+        }
+
+        .active {
+          display: block;
+        }
+
+        .name {
+          color: var(--color-primary);
+        }
+      }
+
+    }
+  }
+
+  .tab-bar-space {
+    height: var(--sb);
+  }
+}

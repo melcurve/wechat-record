@@ -1,0 +1,66 @@
+@import (css) "/styles/common.wxss";
+
+.sf-item {
+  @sfItemHeight: 88rpx;
+
+  .title {
+    position: relative;
+    padding-left: 28rpx;
+
+    &::before {
+      content: '';
+      width: 12rpx;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: var(--color-primary);
+    }
+  }
+
+  .media-uploader+.description {
+    margin-top: -6rpx;
+  }
+
+  .description {
+    font-size: 24rpx;
+    color: var(--color-subtitle);
+  }
+
+  .input {
+    width: 100%;
+    height: @sfItemHeight;
+    border: var(--border-xs);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .input-picker {
+    flex-shrink: 0;
+  }
+
+  .input-button {
+    height: fit-content;
+  }
+
+  .textarea {
+    border: var(--border-xs);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .picker {
+    .picker-wrapper {
+      height: @sfItemHeight;
+      border: var(--border-xs);
+      border-radius: var(--border-radius-sm);
+
+      .placeholder {
+        color: var(--color-placeholder);
+      }
+
+      .icon {
+        width: 24rpx;
+        height: auto;
+      }
+    }
+  }
+}

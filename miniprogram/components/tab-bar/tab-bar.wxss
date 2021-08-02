@@ -1,0 +1,46 @@
+@import '/styles/common.wxss';
+.tab-bar {
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: var(--index-tab-bar);
+  background-color: var(--color-grey-light);
+}
+.tab-bar .tab-block {
+  padding: 22rpx 0 10rpx;
+}
+.tab-bar .tab-block .tab-item {
+  width: 25%;
+  position: relative;
+}
+.tab-bar .tab-block .tab-item .badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-18rpx, -12rpx);
+}
+.tab-bar .tab-block .tab-item .icon {
+  width: 52rpx;
+  height: 52rpx;
+  margin-bottom: 4rpx;
+}
+.tab-bar .tab-block .tab-item .icon.active {
+  display: none;
+}
+.tab-bar .tab-block .tab-item .name {
+  font-size: 20rpx;
+  color: #191919;
+}
+.tab-bar .tab-block .tab-item.active .icon {
+  display: none;
+}
+.tab-bar .tab-block .tab-item.active .active {
+  display: block;
+}
+.tab-bar .tab-block .tab-item.active .name {
+  color: var(--color-primary);
+}
+.tab-bar .tab-bar-space {
+  height: var(--sb);
+}

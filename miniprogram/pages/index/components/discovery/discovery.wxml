@@ -1,0 +1,26 @@
+<!--pages/index/components/discovery/discovery.wxml-->
+
+<!-- 标题栏 -->
+<nav-bar title="{{title}}" bind:longpress="showToolBox"></nav-bar>
+
+<block wx:if="{{isWechatTheme}}">
+  <tool-box id="toolBox" visible="{{$showToolBox}}" spaceFix bind:change="handleToolBoxChange"></tool-box>
+
+  <!-- <image style="width:100%;height:auto;position:absolute;top:0;lef:0;z-index:-1"
+  src="https://mm2015-10006037.cos.ap-shanghai.myqcloud.com/e77b19525b9895c23e3be992f3098c30.png" mode="widthFix" /> -->
+
+  <scroll-view scroll-y enable-back-to-top enhanced class="main">
+
+    <view wx:for="{{discoveryList}}" wx:key="index" wx:if="{{item.show==1}}"
+      class="discovery-item flex-row align-center {{item.fixSpace?'fix-space':'border'}}" data-item="{{item}}"
+      bindtap="handleAction">
+      <image class="icon" src="/images/discovery/{{item.icon}}.png" mode="widthFix" />
+      <view class="name">{{item.name}}</view>
+      <image class="arrow" src="/images/discovery/arrow.png" mode="widthFix" />
+    </view>
+
+    <view class="tab-bar-blank" />
+  </scroll-view>
+</block>
+
+<ad-contact wx:else></ad-contact>

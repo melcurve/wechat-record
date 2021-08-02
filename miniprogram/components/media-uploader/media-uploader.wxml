@@ -1,0 +1,23 @@
+<!--components/media-uploader/media-uploader.wxml-->
+<view class="media-uploader flex-row">
+  <view class="item mr-sm mb-sm" bindtap="select">
+    <view class="add-button">添加</view>
+  </view>
+  <view class="item mr-sm mb-sm" bindtap="history">
+    <view class="add-button">历史</view>
+  </view>
+  <view class="item mr-sm mb-sm" wx:for="{{list}}" wx:key="index">
+    <image class="image" src="{{item.url}}" mode="aspectFill" data-item="{{item}}" data-index="{{index}}"
+      bindtap="preview" bindlongpress="remove" />
+  </view>
+</view>
+
+<popup id="historyPopup" visible="{{$showHistoryPopup}}" title="选择历史图片">
+  <view class="media-uploader flex-row">
+    <view wx:if="{{!historyList.length}}">暂无历史图片</view>
+    <view class="item mr-sm mb-sm" wx:for="{{historyList}}" wx:key="index">
+      <image class="image" src="{{item}}" mode="aspectFill" data-item="{{item}}" data-index="{{index}}"
+        bindtap="handleSelectHistory" bindlongpress="remove" />
+    </view>
+  </view>
+</popup>

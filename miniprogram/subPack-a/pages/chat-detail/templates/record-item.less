@@ -1,0 +1,206 @@
+@import (css) "/styles/common.wxss";
+
+.record-date {
+  color: #9E9E9E;
+  font-size: 28rpx;
+  text-align: center;
+  margin-bottom: 36rpx;
+}
+
+@imageMargin: 24rpx;
+
+.record-item {
+  padding: 0 24rpx;
+  margin-bottom: 34rpx;
+
+  .pop-content {
+
+    .name {
+      color: #747474;
+      margin-bottom: -10rpx;
+      padding-left: 24rpx;
+      font-size: 24rpx;
+      transform: translateY(-12rpx);
+    }
+
+    .pop-card {
+      max-width: 500rpx;
+      padding: 18rpx 24rpx 22rpx;
+      border-radius: 8rpx;
+
+      .text,
+      .audio {
+        color: #0f180a;
+        line-height: 42rpx;
+        font-size: 34rpx;
+      }
+
+      .audio {
+        font-size: 30rpx;
+      }
+
+      .audio-icon {
+        width: 42rpx;
+        height: auto;
+        margin-left: 12rpx;
+      }
+    }
+
+    .transfer {
+      position: relative;
+
+      .transfer-amount {
+        position: absolute;
+        left: 118rpx;
+        top: 28rpx;
+        color: white;
+        font-size: 32rpx;
+        font-weight: bold;
+      }
+
+      .transfer-remark {
+        max-width: 320rpx;
+        position: absolute;
+        left: 124rpx;
+        top: 68rpx;
+        color: white;
+        font-size: 24rpx;
+
+        &.expired {
+          top: 62rpx;
+        }
+      }
+
+      .red-pack-remark {
+        max-width: 320rpx;
+        position: absolute;
+        left: 124rpx;
+        top: 36rpx;
+        color: white;
+        font-size: 34rpx;
+        font-weight: bold;
+
+        &.expired {
+          top: 20rpx;
+        }
+      }
+
+      .transfer-bg {
+        width: 468rpx;
+        height: auto;
+        border-radius: 8rpx;
+      }
+    }
+
+    .pop-arrow {
+      width: 12rpx;
+      height: auto;
+      transform: translateY(24rpx);
+
+      &.reverse {
+        transform: translateY(24rpx) rotate(180deg);
+      }
+
+      &.pop-arrow-left {
+        margin-left: 12rpx;
+      }
+
+      &.pop-arrow-right {
+        margin-right: 12rpx;
+      }
+    }
+
+    .system-text {
+      @systemTextHeight: 46rpx;
+      border-radius: 6rpx;
+      padding: 0 20rpx;
+      background-color: rgba(237, 237, 237, 0.5);
+
+      .system-text-info {
+        line-height: @systemTextHeight;
+        font-size: 29rpx;
+        color: #A7A7A7;
+
+        .red-pack-notice-span {
+          color: #FD9830;
+        }
+      }
+
+      .red-pack-notice-icon {
+        width: 28rpx;
+        height: auto;
+        border-radius: 4rpx;
+        margin-right: 12rpx;
+      }
+    }
+
+  }
+
+  .image {
+    border-radius: 12rpx;
+  }
+
+  &.left {
+    flex-direction: row-reverse;
+
+    .image {
+      margin-left: @imageMargin;
+    }
+
+    .pop-content {
+
+      .pop-card {
+        justify-content: flex-start;
+        background-color: white;
+      }
+
+      .pop-arrow-right {
+        display: none;
+      }
+
+      .audio-icon-right {
+        display: none;
+      }
+    }
+  }
+
+  &.right {
+
+    .image {
+      margin-right: @imageMargin;
+    }
+
+    .pop-content {
+
+      .pop-card {
+        justify-content: flex-end;
+        min-height: 76rpx;
+        background-color: #95EB69;
+      }
+
+      .pop-arrow-left {
+        display: none;
+      }
+
+      .audio-icon-left {
+        display: none;
+      }
+    }
+  }
+
+  .header {
+    @hr: 82rpx;
+    width: @hr;
+    height: @hr;
+    border-radius: 6rpx;
+    flex-shrink: 0;
+    background-image: url("data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/wgALCACEAIQBAREA/8QAGwABAAIDAQEAAAAAAAAAAAAAAAUGAgMEAQj/2gAIAQEAAAAA+lwAAAAAAAAAAAHPW9ExNgAVmPLX1gAqPOWOTABX4llbd4AMKhrnJoADgrWMjYdgA54GPG2blfQFN1gT0wAhsQO/sAAAAAAAAAAAB//EADQQAAIBAQMHCgYDAAAAAAAAAAECAwQABRESFSEwZKPhBhAgIjFBUVJhcRMUQmCBwSMy0f/aAAgBAQABPwD7KrapKSAyPpPcvibVNdUVDYvIQvlXQLJI6HFHZT6G113qxcRVJBx0B/8Addfc5lrWX6Y+qP30LqnM9DGzaWHVOtvAFa6oB856HJ8EUR9XP61t/wBMVmFQv9X0H3540Z3CICWOgWo4RT0scXlGn31ssazRNG4xRrTx/Bmkj7chivNyep1yXqDpbHJX011deUVMGVCHl8o7vezsXdnbSzHE8101/wAoWSQYxNp9jaGWOZMuJg6+mrqqqKlTKlbT3L3m1bek1Riqfxx+A7T+ejBPJA+XC5U2ob3STqVOCP5vp4aqaV5pWkkJLHUcnZXeKaNmJVMMPzjqXuNS5KTlV8MnjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vjbMW07vja7qFaJHAcuz9p7Psn/2Q==");
+    background-size: cover;
+  }
+
+  &.background-fixed {
+    .system-text-info {
+      color: #181818 !important;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<!--components/popup/popup.wxml-->
+<view wx:if="{{exist}}" class="popup {{show?'show':''}}">
+
+  <!-- 弹窗 -->
+  <view class="content flex-column" style="max-height:calc(100vh - 100rpx - {{SBH}}px)">
+
+    <!-- 标题栏 -->
+    <view class="title-block flex-row justify-between align-center">
+      <view class="title bold">{{title}}</view>
+      <view class="button-block flex-row">
+        <button class="confirm-button mr-md" type="primary" size="mini" bindtap="confirm">{{confirmText}}</button>
+        <button class="close-button" type="warn" size="mini" bindtap="close">{{cancelText}}</button>
+      </view>
+    </view>
+
+    <!-- 插槽 -->
+    <scroll-view scroll-y class="slot">
+      <!-- 加入slot-wrapper是为了避免scroll-view的滚动条挡住主要内容 -->
+      <view class="slot-wrapper">
+        <view class="slot-blank-top" />
+        <slot></slot>
+        <view class="slot-blank-bottom" />
+      </view>
+    </scroll-view>
+
+  </view>
+
+  <!-- 遮罩 -->
+  <view class="shade" bindtap="close" />
+</view>

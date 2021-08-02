@@ -1,0 +1,87 @@
+<!--components/sf/sf.wxml-->
+<view class="sf">
+  <view wx:for="{{schema}}" wx:if="{{item._show&&item.type!='hidden'}}" wx:key="index" wx:for-index="key"
+    wx:for-item="item" class="sf-item mb-xxl">
+    <view class="title mb-md">{{item.title}}：</view>
+
+    <!-- 输入框 -->
+    <view wx:if="{{item.type=='input'}}" class="input-block flex-row align-center">
+      <input class="input px-md" type="text" value="{{item.value}}" placeholder="{{item.placeholder||''}}"
+        data-key="{{key}}" bindinput="handleValue" />
+      <picker wx:if="{{item.history}}" mode="selector" range="{{historyList}}" class="input-picker ml-md"
+        data-key="{{key}}" bindchange="handleSelectHistory">
+        <button class="input-button" size="mini">历史</button>
+      </picker>
+    </view>
+
+    <!-- 数字输入框 -->
+    <input wx:if="{{item.type=='number'}}" type="number" value="{{item.value}}" placeholder="{{item.placeholder||''}}"
+      class="input px-md" data-key="{{key}}" bindinput="handleValue" />
+
+    <!-- 带小数点数字输入框 -->
+    <input wx:if="{{item.type=='digit'}}" type="digit" value="{{item.value}}" placeholder="{{item.placeholder||''}}"
+      class="input px-md" data-key="{{key}}" bindinput="handleValue" />
+
+    <!-- 多行输入 -->
+    <textarea class="textarea p-md" wx:if="{{item.type=='textarea'}}" value="{{item.value}}" data-key="{{key}}"
+      bindinput="handleValue"></textarea>
+
+    <!-- 多选 -->
+    <checkbox-group wx:if="{{item.type=='checkbox'}}" class="flex-row" data-key="{{key}}" bindchange="handleValue">
+      <label class="flex-row mr-sm mb-sm" wx:for="{{item.enum}}" wx:key="index" wx:for-item="enumItem">
+        <checkbox value="{{enumItem.value}}" checked="{{enumItem.checked}}" />
+        <view>{{enumItem.label}}</view>
+      </label>
+    </checkbox-group>
+
+    <!-- 单选 -->
+    <radio-group wx:if="{{item.type=='radio'}}" class="flex-row" data-key="{{key}}" bindchange="handleValue">
+      <label class="flex-row mr-sm mb-sm" wx:for="{{item.enum}}" wx:key="index" wx:for-item="enumItem">
+        <radio value="{{enumItem.value}}" checked="{{enumItem.checked}}" />
+        <view>{{enumItem.label}}</view>
+      </label>
+    </radio-group>
+
+    <!-- 图片 -->
+    <media-uploader class="media-uploader" wx:if="{{item.type=='media'}}" value="{{item.value}}"
+      maxLength="{{item.maxLength}}" data-key="{{key}}" bind:change="handleValue">
+    </media-uploader>
+
+    <!-- 普通下拉选择 -->
+    <picker class="picker" wx:if="{{item.type=='selector'}}" mode="selector" range="{{item.enum}}" range-key="label"
+      value="{{item.pickerValue}}" data-key="{{key}}" bindchange="handleValue">
+      <view class="picker-wrapper flex-row justify-between align-center px-md">
+        <view class="value {{!item.value&&item.value!=0?'placeholder':''}}">{{item.pickerLabel||item.placeholder||''}}
+        </view>
+        <image class="icon" src="/images/arrow_down.svg" mode="widthFix" />
+      </view>
+    </picker>
+
+    <!-- 日期 -->
+    <picker class="picker" wx:if="{{item.type=='date'}}" mode="date" value="{{item.value}}" data-key="{{key}}"
+      bindchange="handleValue">
+      <view class="picker-wrapper flex-row justify-between align-center px-md">
+        <view class="value {{!item.value?'placeholder':''}}">{{item.value||item.placeholder||''}}</view>
+        <image class="icon" src="/images/arrow_down.svg" mode="widthFix" />
+      </view>
+    </picker>
+
+    <!-- 时间 -->
+    <picker class="picker" wx:if="{{item.type=='time'}}" mode="time" value="{{item.value}}" data-key="{{key}}"
+      bindchange="handleValue">
+      <view class="picker-wrapper flex-row justify-between align-center px-md">
+        <view class="value {{!item.value?'placeholder':''}}">{{item.value||item.placeholder||''}}</view>
+        <image class="icon" src="/images/arrow_down.svg" mode="widthFix" />
+      </view>
+    </picker>
+
+    <!-- 开关 -->
+    <view wx:if="{{item.type=='boolean'}}" class="switch flex-row align-center">
+      <view class="mr-md" wx:if="{{item.switchLabel}}">{{item.switchLabel}}</view>
+      <switch checked="{{item.value}}" data-key="{{key}}" bindchange="handleValue">
+      </switch>
+    </view>
+
+    <view class="description mt-sm" wx:if="{{item.description}}">{{item.description}}</view>
+  </view>
+</view>

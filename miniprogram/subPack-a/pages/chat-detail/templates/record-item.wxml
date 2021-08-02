@@ -1,0 +1,105 @@
+<template name="record-item">
+
+  <!-- 发送时间 -->
+  <view wx:if="{{item.date}}" class="record-date">{{item.date}}</view>
+
+  <!-- 消息 -->
+  <view
+    class="record-item flex-row {{customBackground?'background-fixed':''}} {{item.type=='system'||item.type=='redPackNotice'?'justify-center':item.side=='left'?'left justify-end':'right justify-end'}}"
+    data-item="{{item}}" data-index="{{index}}" bindlongpress="showChatRecordMenu">
+
+    <!-- 气泡 -->
+    <view class="pop-content">
+
+      <!-- 名称 -->
+      <view wx:if="{{showGroupUserName&&item.side=='left'}}" class="name">{{item.name}}</view>
+
+      <!-- 气泡容器 -->
+      <view wx:if="{{item.type=='text'||item.type=='audio'}}" class="pop-wrapper flex-row">
+
+        <!-- 左箭头 -->
+        <image class="pop-arrow pop-arrow-left" src="/subPack-a/images/pop_arrow_left.png" mode="widthFix" />
+
+        <!-- 文本 -->
+        <view wx:if="{{item.type=='text'}}" class="pop-card flex-row">
+          <text space="nbsp" class="text">{{item.text}}</text>
+        </view>
+
+        <!-- 单条语音 -->
+        <view wx:if="{{item.type=='audio'}}" class="pop-card flex-row audio-card"
+          style="width:{{item.duration>2?146+(18+(item.duration-(item.duration<6?3:item.duration<9?2:1))*14):146}}rpx;max-width:400rpx;">
+          <image class="audio-icon audio-icon-left" src="/subPack-a/images/ic_audio_left.png" mode="widthFix" />
+          <view class="audio">{{item.duration}}''</view>
+          <image class="audio-icon audio-icon-right" src="/subPack-a/images/ic_audio_right.png" mode="widthFix" />
+        </view>
+
+        <!-- 右箭头 -->
+        <image class="pop-arrow pop-arrow-right" src="/subPack-a/images/pop_arrow_right.png" mode="widthFix" />
+
+      </view>
+
+      <!-- 气泡容器 -->
+      <view wx:if="{{item.type=='media'}}" class="pop-wrapper flex-row">
+
+        <!-- 图片/视频 -->
+        <image class="image" src="{{item.media}}"
+          style="width:{{item.fixedSize.width}}rpx;height:{{item.fixedSize.height}}rpx" mode="aspectFill"
+          data-item="{{item}}" bindtap="previewImage" />
+      </view>
+
+      <view wx:if="{{item.type=='redPack'||item.type=='transfer'}}" class="pop-wrapper flex-row">
+
+        <!-- 左箭头 -->
+        <image class="pop-arrow reverse pop-arrow-left"
+          src="/subPack-a/images/transfer_arrow{{item.transferStatus!='normal'?'_expired':''}}.png" mode="widthFix" />
+
+        <!-- 红包 -->
+        <view wx:if="{{item.type=='redPack'}}" class="transfer">
+          <view class="red-pack-remark single-line {{item.transferStatus!='normal'?'expired':''}}">
+            {{item.remark||'恭喜发财，大吉大利'}}</view>
+          <image class="transfer-bg" src="/subPack-a/images/red_pack{{item.transferStatus!='normal'?'_expired':''}}.png"
+            mode="widthFix" />
+          <view wx:if="{{item.transferStatus=='received'}}" class="transfer-remark expired">已领取</view>
+          <view wx:elif="{{item.transferStatus=='beReceived'}}" class="transfer-remark expired">已被领完</view>
+          <view wx:elif="{{item.transferStatus=='expired'}}" class="transfer-remark expired">已过期</view>
+        </view>
+
+        <!-- 转账 -->
+        <view wx:if="{{item.type=='transfer'}}" class="transfer">
+          <view class="transfer-amount">￥{{item.price||0.01}}</view>
+          <view wx:if="{{item.transferStatus=='normal'}}" class="transfer-remark single-line">
+            {{item.remark||(item.side=='left'?'请收款':'你发起了一笔转账')}}</view>
+          <view wx:elif="{{item.transferStatus=='received'}}" class="transfer-remark">已收款</view>
+          <view wx:elif="{{item.transferStatus=='beReceived'}}" class="transfer-remark">已被接收</view>
+          <view wx:elif="{{item.transferStatus=='expired'}}" class="transfer-remark">已过期</view>
+          <view wx:elif="{{item.transferStatus=='returned'}}" class="transfer-remark">已退还</view>
+          <view wx:elif="{{item.transferStatus=='beReturned'}}" class="transfer-remark">已被退还</view>
+          <image class="transfer-bg"
+            src="/subPack-a/images/transfer{{item.transferStatus!='normal'?item.transferStatus=='returned'||item.transferStatus=='beReturned'?'_returned':'_expired':''}}.png"
+            mode="widthFix" />
+        </view>
+
+        <!-- 右箭头 -->
+        <image class="pop-arrow pop-arrow-right"
+          src="/subPack-a/images/transfer_arrow{{item.transferStatus!='normal'?'_expired':''}}.png" mode="widthFix" />
+      </view>
+
+      <!-- 系统消息 -->
+      <view wx:if="{{item.type=='system'}}" class="system-text">
+        <view class="system-text-info">{{item.systemText}}</view>
+      </view>
+
+      <!-- 红包领取系统消息 -->
+      <view wx:if="{{item.type=='redPackNotice'}}" class="system-text flex-row align-center">
+        <image class="red-pack-notice-icon" src="/subPack-a/images/ic_red_pack_notice.png" mode="widthFix" />
+        <view class="system-text-info">{{item.redPackNotice}}领取了你的<span class="red-pack-notice-span">红包</span></view>
+      </view>
+
+    </view>
+
+    <!-- 头像 -->
+    <image wx:if="{{item.type!='system'&&item.type!='redPackNotice'}}" class="header" src="{{item.header}}"
+      mode="aspectFill" />
+
+  </view>
+</template>

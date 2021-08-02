@@ -1,0 +1,339 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.align-start {
+  align-items: flex-start;
+}
+.align-center {
+  align-items: center;
+}
+.align-end {
+  align-items: flex-end;
+}
+.main {
+  width: 100vw;
+  height: 100vh;
+}
+.tab-bar-blank {
+  width: 100%;
+  height: calc(290rpx + var(--sb));
+}
+.single-line {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.multiple-line {
+  overflow: hidden;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.multiple-line.line1 {
+  -webkit-line-clamp: 1;
+}
+.multiple-line.line2 {
+  -webkit-line-clamp: 2;
+}
+.multiple-line.line3 {
+  -webkit-line-clamp: 3;
+}
+.multiple-line.line4 {
+  -webkit-line-clamp: 4;
+}
+.bold {
+  font-weight: bold;
+}
+.badge {
+  width: 36rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 24rpx;
+  color: white;
+  font-weight: bold;
+  background-color: #FA5051;
+}
+.badge.mini {
+  width: 20rpx;
+  height: 20rpx;
+}
+.badge.large {
+  width: auto;
+  border-radius: 36rpx;
+  padding: 0 16rpx;
+}
+.m-xs {
+  margin: 8rpx;
+}
+.m-sm {
+  margin: 16rpx;
+}
+.m-md {
+  margin: 24rpx;
+}
+.m-lg {
+  margin: 32rpx;
+}
+.m-xl {
+  margin: 40rpx;
+}
+.m-xxl {
+  margin: 48rpx;
+}
+.mx-xs {
+  margin: 0 8rpx 0;
+}
+.mx-sm {
+  margin: 0 16rpx 0;
+}
+.mx-md {
+  margin: 0 24rpx 0;
+}
+.mx-lg {
+  margin: 0 32rpx 0;
+}
+.mx-xl {
+  margin: 0 40rpx 0;
+}
+.mx-xxl {
+  margin: 0 48rpx 0;
+}
+.my-xs {
+  margin: 8rpx 0;
+}
+.my-sm {
+  margin: 16rpx 0;
+}
+.my-md {
+  margin: 24rpx 0;
+}
+.my-lg {
+  margin: 32rpx 0;
+}
+.my-xl {
+  margin: 40rpx 0;
+}
+.my-xxl {
+  margin: 48rpx 0;
+}
+.mr-xs {
+  margin-right: 8rpx;
+}
+.mr-sm {
+  margin-right: 16rpx;
+}
+.mr-md {
+  margin-right: 24rpx;
+}
+.mr-lg {
+  margin-right: 32rpx;
+}
+.mr-xl {
+  margin-right: 40rpx;
+}
+.mr-xxl {
+  margin-right: 48rpx;
+}
+.ml-xs {
+  margin-left: 8rpx;
+}
+.ml-sm {
+  margin-left: 16rpx;
+}
+.ml-md {
+  margin-left: 24rpx;
+}
+.ml-lg {
+  margin-left: 32rpx;
+}
+.ml-xl {
+  margin-left: 40rpx;
+}
+.ml-xxl {
+  margin-left: 48rpx;
+}
+.mt-xs {
+  margin-top: 8rpx;
+}
+.mt-sm {
+  margin-top: 16rpx;
+}
+.mt-md {
+  margin-top: 24rpx;
+}
+.mt-lg {
+  margin-top: 32rpx;
+}
+.mt-xl {
+  margin-top: 40rpx;
+}
+.mt-xxl {
+  margin-top: 48rpx;
+}
+.mb-xs {
+  margin-bottom: 8rpx;
+}
+.mb-sm {
+  margin-bottom: 16rpx;
+}
+.mb-md {
+  margin-bottom: 24rpx;
+}
+.mb-lg {
+  margin-bottom: 32rpx;
+}
+.mb-xl {
+  margin-bottom: 40rpx;
+}
+.mb-xxl {
+  margin-bottom: 48rpx;
+}
+.p-xs {
+  padding: 8rpx;
+}
+.p-sm {
+  padding: 16rpx;
+}
+.p-md {
+  padding: 24rpx;
+}
+.p-lg {
+  padding: 32rpx;
+}
+.p-xl {
+  padding: 40rpx;
+}
+.p-xxl {
+  padding: 48rpx;
+}
+.pr-xs {
+  padding-right: 8rpx;
+}
+.pr-sm {
+  padding-right: 16rpx;
+}
+.pr-md {
+  padding-right: 24rpx;
+}
+.pr-lg {
+  padding-right: 32rpx;
+}
+.pr-xl {
+  padding-right: 40rpx;
+}
+.pr-xxl {
+  padding-right: 48rpx;
+}
+.pl-xs {
+  padding-left: 8rpx;
+}
+.pl-sm {
+  padding-left: 16rpx;
+}
+.pl-md {
+  padding-left: 24rpx;
+}
+.pl-lg {
+  padding-left: 32rpx;
+}
+.pl-xl {
+  padding-left: 40rpx;
+}
+.pl-xxl {
+  padding-left: 48rpx;
+}
+.pt-xs {
+  padding-top: 8rpx;
+}
+.pt-sm {
+  padding-top: 16rpx;
+}
+.pt-md {
+  padding-top: 24rpx;
+}
+.pt-lg {
+  padding-top: 32rpx;
+}
+.pt-xl {
+  padding-top: 40rpx;
+}
+.pt-xxl {
+  padding-top: 48rpx;
+}
+.pb-xs {
+  padding-bottom: 8rpx;
+}
+.pb-sm {
+  padding-bottom: 16rpx;
+}
+.pb-md {
+  padding-bottom: 24rpx;
+}
+.pb-lg {
+  padding-bottom: 32rpx;
+}
+.pb-xl {
+  padding-bottom: 40rpx;
+}
+.pb-xxl {
+  padding-bottom: 48rpx;
+}
+.px-xs {
+  padding: 0 8rpx 0;
+}
+.px-sm {
+  padding: 0 16rpx 0;
+}
+.px-md {
+  padding: 0 24rpx 0;
+}
+.px-lg {
+  padding: 0 32rpx 0;
+}
+.px-xl {
+  padding: 0 40rpx 0;
+}
+.px-xxl {
+  padding: 0 48rpx 0;
+}
+.py-xs {
+  padding: 8rpx 0;
+}
+.py-sm {
+  padding: 16rpx 0;
+}
+.py-md {
+  padding: 24rpx 0;
+}
+.py-lg {
+  padding: 32rpx 0;
+}
+.py-xl {
+  padding: 40rpx 0;
+}
+.py-xxl {
+  padding: 48rpx 0;
+}

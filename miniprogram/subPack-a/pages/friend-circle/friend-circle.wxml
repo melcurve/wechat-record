@@ -1,0 +1,22 @@
+<!--miniprogram/subPack-a/pages/friend-circle/friend-circle.wxml-->
+
+<!-- 标题栏 -->
+<nav-bar title="{{onTop?'':'朋友圈'}}" blank="{{false}}" bg="{{onTop?false:true}}" back bind:longpress="showToolBox">
+</nav-bar>
+<tool-box id="toolBox" visible="{{$showToolBox}}" bind:change="handleToolBoxChange"></tool-box>
+
+<!-- <image style="width:100%;height:auto;position:fixed;top:0px;left:0px;z-index:-1" src="/subPack-a/images/fake/fake2.png"
+  mode="widthFix" /> -->
+
+<scroll-view scroll-y enable-back-to-top enhanced class="main">
+  <view class="header-block" style="height:calc({{SBH}}px + 600rpx)">
+    <image class="banner" src="{{friendCircleDetail.banner||'/subPack-a/images/friend_card_banner.jpg'}}"
+      mode="aspectFill" />
+    <view class="name">{{friendCircleDetail.name}}</view>
+    <image class="header" src="{{friendCircleDetail.header}}" mode="aspectFill" />
+  </view>
+  <view class="record-block">
+    <view class="empty-record" wx:if="{{!friendCircleDetail.record.length}}">还没有朋友发照片，你可以现在就拍一张</view>
+    <view class="record-item" wx:for="{{friendCircleDetail.record}}" wx:key="id"></view>
+  </view>
+</scroll-view>

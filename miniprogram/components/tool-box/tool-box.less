@@ -1,0 +1,23 @@
+@import (css) "/styles/common.wxss";
+
+.tool-box-button {
+  width: 100rpx;
+  height: auto;
+  position: fixed;
+  z-index: var(--index-tab-bar);
+  right: 32rpx;
+  bottom: calc(64rpx + var(--sb));
+  transition: transform 0.2s;
+
+  &.space-fix {
+    bottom: calc(172rpx + var(--sb));
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+
+  &.hide {
+    transform: translateX(100% + 32rpx);
+  }
+}

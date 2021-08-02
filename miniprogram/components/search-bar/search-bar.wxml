@@ -1,0 +1,7 @@
+<!--components/search-bar/search-bar.wxml-->
+<view class="search-bar">
+  <view class="wrapper flex-row justify-center align-center">
+    <image class="icon" src="/images/ic_search.png" mode="widthFix" />
+    <view class="label">搜索</view>
+  </view>
+</view>

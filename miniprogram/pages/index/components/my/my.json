@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "ad-contact": "/components/ad-contact/ad-contact"
+  }
+}

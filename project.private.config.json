@@ -1,0 +1,29 @@
+{
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "subPack-a/pages/friend-circle/friend-circle",
+          "pathName": "subPack-a/pages/friend-circle/friend-circle",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

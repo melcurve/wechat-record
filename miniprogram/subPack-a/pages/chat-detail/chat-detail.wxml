@@ -1,0 +1,50 @@
+<!--subPack-a/pages/chat-detail/chat-detail.wxml-->
+<import src="./templates/record-item.wxml" />
+
+<!-- 标题栏 -->
+<nav-bar title="{{chatDetail.title}}" badge="{{chatDetail.badge}}" border back bind:longpress="showToolBox"></nav-bar>
+<tool-box id="toolBox" visible="{{$showToolBox}}" spaceFix bind:change="handleToolBoxChange"></tool-box>
+
+<!-- <image style="width:100%;height:auto;position:fixed;top:-430px;left:0px;z-index:-1"
+  src="/subPack-a/images/fake/fake2.png" mode="widthFix" /> -->
+
+<image wx:if="{{chatDetail.customBackground&&chatDetail.customBackground[0]}}" class="custom-background"
+  src="{{chatDetail.customBackground[0]}}" mode="aspectFill" />
+
+<scroll-view scroll-y scroll-top="{{scrollTop}}" enable-back-to-top enhanced class="main" bindtap="handleHideUtilBlock">
+  <view class="main-blank" />
+  <view id="scrollWrapper" class="scroll-wrapper">
+    <template wx:for="{{chatDetail.record}}" wx:key="id" is="record-item"
+      data="{{item,index,showGroupUserName:(chatDetail.groupUserName==1?true:false),customBackground:(chatDetail.customBackground?true:false)}}"></template>
+    <view class="bottom-block-blank" />
+  </view>
+</scroll-view>
+
+<view class="bottom-block">
+  <view class="input-block flex-row align-end">
+    <image class="icon audio" src="/subPack-a/images/audio.png" mode="widthFix" data-action="3"
+      bindtap="handleUtilAction" />
+    <textarea class="input" value="{{inputValue}}" show-confirm-bar="" auto-height="true" disable-default-padding="true"
+      cursor-spacing="22" confirm-type="send" confirm-hold="true" bindconfirm="handleSend"></textarea>
+    <image class="icon emoji" src="/subPack-a/images/emoji.png" mode="widthFix" />
+    <image class="icon util" src="/subPack-a/images/extra.png" mode="widthFix" bindtap="handleShowUtilBlock" />
+  </view>
+  <view class="util-block {{$showUtilBlock?'show':''}}">
+    <swiper class="swiper" duration="300" current="{{swiperIndex}}" bindchange="handleSwiperChange">
+      <swiper-item class="swiper-item" wx:for="{{utilList}}" wx:key="index">
+        <view class="util-swiper-wrapper flex-row">
+          <view wx:for="{{item}}" wx:key="index" wx:for-item="utilItem"
+            class="util-item flex-column justify-center align-center" data-action="{{utilItem.action}}"
+            bindtap="handleUtilAction">
+            <image class="icon" src="/subPack-a/images/chat-util/{{utilItem.icon}}.png" mode="widthFix" />
+            <view class="label">{{utilItem.label}}</view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="pagination flex-row justify-center align-center">
+      <view class="dot {{swiperIndex==index?'active':''}}" wx:for="{{utilList}}" wx:key="index" />
+    </view>
+  </view>
+  <view class="bottom-block-blank" />
+</view>

@@ -1,0 +1,14 @@
+<!--components/tab-bar/tab-bar.wxml-->
+<view class="tab-bar">
+  <view class="tab-block flex-row">
+    <view wx:for="{{tabList}}" wx:key="index" class="tab-item flex-column align-center {{tabIndex==index?'active':''}}"
+      data-index="{{index}}" bindtap="switchTab">
+      <view wx:if="{{item.badge}}" class="badge {{item.badge>=10?'large':''}}">
+        {{item.badge&&item.badge!=0?item.badge:''}}</view>
+      <image class="icon" src="/images/tab-bar/{{item.icon}}.{{item.iconUnit}}" mode="aspectFit" />
+      <image class="icon active" src="/images/tab-bar/{{item.icon}}_active.{{item.iconUnit}}" mode="aspectFit" />
+      <view class="name">{{item.name}}</view>
+    </view>
+  </view>
+  <view class="tab-bar-space" />
+</view>
