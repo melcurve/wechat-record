@@ -1,2 +1,8 @@
 <!--pages/after-capture/after-capture.wxml-->
-<text>pages/after-capture/after-capture.wxml</text>
+<!-- 标题栏 -->
+<nav-bar title="截屏处理" border back></nav-bar>
+
+<view class="main flex-column align-center justify-center">
+  <view class="desc">在这里上传你的截屏，可以帮你隐藏右上角的小程序按钮</view>
+  <button type="primary" bind:tap="handleSelect">上传并处理</button>
+</view>

@@ -1,6 +1,15 @@
 // components/tool-box/tool-box.js
-const { discoveryList } = require("../../assets/discovery-list");
-const { getEnum, toast, valid, hideAll, delay } = require("../../utils/common");
+const {
+  discoveryList
+} = require("../../assets/discovery-list");
+const {
+  getEnum,
+  toast,
+  valid,
+  hideAll,
+  delay,
+  to
+} = require("../../utils/common");
 Component({
   properties: {
     // 是否显示工具箱按钮
@@ -27,7 +36,9 @@ Component({
     $showDynamicPopup: false,
     // 聊天表单项
     chatListSchema: {
-      id: { type: 'hidden' },
+      id: {
+        type: 'hidden'
+      },
       header: {
         title: '头像',
         type: 'media',
@@ -84,28 +95,58 @@ Component({
     },
     // 聊天记录表单项
     chatDetailSchema: {
-      id: { type: 'hidden' },
+      id: {
+        type: 'hidden'
+      },
       type: {
         type: 'selector',
         title: '消息类型',
-        enum: [
-          { label: '普通文本', value: 'text' },
-          { label: '图片/视频', value: 'media' },
-          { label: '单条语音', value: 'audio' },
+        enum: [{
+            label: '普通文本',
+            value: 'text'
+          },
+          {
+            label: '图片/视频',
+            value: 'media'
+          },
+          {
+            label: '单条语音',
+            value: 'audio'
+          },
           // { label: '视频通话', value: 'videoChat' },
           // { label: '语音通话', value: 'audioChat' },
-          { label: '红包', value: 'redPack' },
-          { label: '转账', value: 'transfer' },
-          { label: '系统提示', value: 'system' },
-          { label: '红包领取提示', value: 'redPackNotice' },
+          {
+            label: '红包',
+            value: 'redPack'
+          },
+          {
+            label: '转账',
+            value: 'transfer'
+          },
+          {
+            label: '系统提示',
+            value: 'system'
+          },
+          {
+            label: '红包领取提示',
+            value: 'redPackNotice'
+          },
         ],
         default: 'text',
       },
       side: {
         type: 'radio',
         title: '消息位置',
-        enum: [{ label: '左侧', value: 'left' }, { label: '右侧', value: 'right' }],
-        visibleIf: { type: (val) => val != 'system' && val != 'redPackNotice' },
+        enum: [{
+          label: '左侧',
+          value: 'left'
+        }, {
+          label: '右侧',
+          value: 'right'
+        }],
+        visibleIf: {
+          type: (val) => val != 'system' && val != 'redPackNotice'
+        },
         default: 'right',
       },
       date: {
@@ -118,21 +159,27 @@ Component({
         type: 'media',
         title: '头像',
         maxLength: 1,
-        visibleIf: { type: (val) => val != 'system' }
+        visibleIf: {
+          type: (val) => val != 'system'
+        }
       },
       name: {
         type: 'input',
         title: '名称',
         placeholder: '请输入名称',
         history: true,
-        visibleIf: { type: (val) => val != 'system' }
+        visibleIf: {
+          type: (val) => val != 'system'
+        }
       },
       text: {
         type: 'input',
         title: '文本内容',
         placeholder: '请输入文本内容',
         history: true,
-        visibleIf: { type: ['text'] }
+        visibleIf: {
+          type: ['text']
+        }
       },
       systemText: {
         type: 'input',
@@ -140,14 +187,18 @@ Component({
         placeholder: '请输入系统消息',
         history: true,
         description: 'Tips：系统消息亦可作为拍一拍文本使用',
-        visibleIf: { type: ['system'] },
+        visibleIf: {
+          type: ['system']
+        },
       },
       systemTextBold: {
         type: 'radio',
         title: '系统消息是否为粗体',
         enum: getEnum(['否', '是'], 2),
         description: 'Tips：如果系统消息作为拍一拍文本使用，对方拍你需要显示为粗体',
-        visibleIf: { type: ['system'] },
+        visibleIf: {
+          type: ['system']
+        },
         default: 0
       },
       redPackNotice: {
@@ -156,46 +207,75 @@ Component({
         history: true,
         placeholder: '请输入领取方的名称',
         description: '将会显示为 xxx领取了你的红包',
-        visibleIf: { type: ['redPackNotice'] }
+        visibleIf: {
+          type: ['redPackNotice']
+        }
       },
       media: {
         type: 'media',
         title: '图片/视频',
-        visibleIf: { type: ['media'] }
+        visibleIf: {
+          type: ['media']
+        }
       },
       duration: {
         type: 'number',
         title: '时长',
         placeholder: '请输入通话时长',
-        visibleIf: { type: ['audio', 'videoChat', 'audioChat'] }
+        visibleIf: {
+          type: ['audio', 'videoChat', 'audioChat']
+        }
       },
       price: {
         type: 'digit',
         title: '金额',
         placeholder: '请输入金额',
-        visibleIf: { type: ['redPack', 'transfer'] }
+        visibleIf: {
+          type: ['redPack', 'transfer']
+        }
       },
       remark: {
         type: 'input',
         title: '备注内容',
         history: true,
         placeholder: '请输入备注',
-        visibleIf: { type: ['redPack', 'transfer'] },
+        visibleIf: {
+          type: ['redPack', 'transfer']
+        },
         default: '恭喜发财，大吉大利',
       },
       transferStatus: {
         type: 'radio',
         title: '状态',
-        enum: [
-          { label: '正常', value: 'normal' },
-          { label: '已领取(收款方)', value: 'received' },
-          { label: '已被领取(发款方)', value: 'beReceived' },
-          { label: '已过期', value: 'expired' },
-          { label: '已退回(收款方)', value: 'returned' },
-          { label: '已被退回(发款方)', value: 'beReturned' },
+        enum: [{
+            label: '正常',
+            value: 'normal'
+          },
+          {
+            label: '已领取(收款方)',
+            value: 'received'
+          },
+          {
+            label: '已被领取(发款方)',
+            value: 'beReceived'
+          },
+          {
+            label: '已过期',
+            value: 'expired'
+          },
+          {
+            label: '已退回(收款方)',
+            value: 'returned'
+          },
+          {
+            label: '已被退回(发款方)',
+            value: 'beReturned'
+          },
         ],
         description: '领取和退回的状态在发款/收款两边显示文案不同，最好自行实际体验下区别',
-        visibleIf: { type: ['redPack', 'transfer'] },
+        visibleIf: {
+          type: ['redPack', 'transfer']
+        },
         default: 'normal'
       },
     },
@@ -293,14 +373,16 @@ Component({
 
     // 添加聊天列表
     showActionInChatList() {
-      let itemList = ['添加聊天', '删除所有聊天', '隐藏工具箱按钮', '清空缓存'];
+      let itemList = ['添加聊天', '删除所有聊天', '隐藏工具箱按钮', '处理截屏', '清空缓存'];
       wx.showActionSheet({
         alertText: '聊天列表工具箱',
         itemList,
       }).then((res) => {
         switch (res.tapIndex) {
           case 0:
-            this.setData({ $showChatListPopup: true }, () => {
+            this.setData({
+              $showChatListPopup: true
+            }, () => {
               // 获取聊天弹窗组件对象
               this.chatListSF = this.selectComponent('#chatListSF');
             });
@@ -312,6 +394,9 @@ Component({
             this.handleHide();
             break;
           case 3:
+            to(`/pages/after-capture/after-capture`);
+            break;
+          case 4:
             this.handleChange('clearAll');
             break;
         }
@@ -323,13 +408,17 @@ Component({
       const handleAction = (tapIndex) => {
         switch (tapIndex) {
           case 0:
-            this.setData({ $showEditChatPopup: true }, () => {
+            this.setData({
+              $showEditChatPopup: true
+            }, () => {
               // 获取编辑标题弹窗组件对象
               this.editChatSF = this.selectComponent('#editChatSF');
             });
             break;
           case 1:
-            this.setData({ $showChatDetailPopup: true }, () => {
+            this.setData({
+              $showChatDetailPopup: true
+            }, () => {
               // 获取聊天记录弹窗组件对象
               this.chatDetailSF = this.selectComponent('#chatDetailSF');
             });
@@ -402,13 +491,17 @@ Component({
       }).then((res) => {
         switch (res.tapIndex) {
           case 0:
-            this.setData({ $showFriendCirclePopup: true }, () => {
+            this.setData({
+              $showFriendCirclePopup: true
+            }, () => {
               // 获取朋友圈设置弹窗组件对象
               this.friendCircleSF = this.selectComponent('#friendCircleSF');
             });
             break;
           case 1:
-            this.setData({ $showDynamicPopup: true }, () => {
+            this.setData({
+              $showDynamicPopup: true
+            }, () => {
               // 获取动态弹窗组件对象
               this.dynamicSF = this.selectComponent('#dynamicSF');
             });
@@ -426,12 +519,16 @@ Component({
     // 隐藏工具箱按钮
     handleHide() {
       toast.fail('长按顶部标题或重启小程序可重新显示工具箱按钮');
-      this.setData({ visible: false });
+      this.setData({
+        visible: false
+      });
     },
 
     // 显示编辑聊天弹窗
     handleEditChatList(item) {
-      this.setData({ $showChatListPopup: true }, () => {
+      this.setData({
+        $showChatListPopup: true
+      }, () => {
         // 获取聊天弹窗组件对象
         this.chatListSF = this.selectComponent('#chatListSF');
         this.chatListSF.setFormData(item);
@@ -447,7 +544,9 @@ Component({
 
     // 显示编辑聊天弹窗
     handleEditChatDetail(item) {
-      this.setData({ $showChatDetailPopup: true }, () => {
+      this.setData({
+        $showChatDetailPopup: true
+      }, () => {
         // 获取聊天记录弹窗组件对象
         this.chatDetailSF = this.selectComponent('#chatDetailSF');
         this.chatDetailSF.setFormData(item);
@@ -491,12 +590,17 @@ Component({
 
     // 工具箱变更回调
     handleChange(change, data) {
-      this.triggerEvent('change', { change, data });
+      this.triggerEvent('change', {
+        change,
+        data
+      });
     },
 
     // 关闭弹窗
     handleClosePopup() {
-      delay(() => { hideAll(this); }, 500);
+      delay(() => {
+        hideAll(this);
+      }, 500);
     },
   }
 });

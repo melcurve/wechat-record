@@ -1,5 +1,12 @@
 // subPack-a/pages/chat-detail/chat-detail.js
-import { toast, delay, dataset, getId, valid, to } from "../../../utils/common";
+import {
+  toast,
+  delay,
+  dataset,
+  getId,
+  valid,
+  to
+} from "../../../utils/common";
 const app = getApp();
 Page({
   data: {
@@ -10,20 +17,59 @@ Page({
     swiperIndex: 0,
     chatDetail: {},
     inputValue: '',
-    utilList: [[
-      { label: '照片', icon: '1', action: 'media' },
-      { label: '拍摄', icon: '2', action: 'media' },
-      { label: '视频通话', icon: '3', action: 'videoChat' },
-      { label: '位置', icon: '4' },
-      { label: '红包', icon: '5', action: 'redPack' },
-      { label: '转账', icon: '6', action: 'transfer' },
-      { label: '语音输入', icon: '7' },
-      { label: '收藏', icon: '8' },
-    ], [
-      { label: '个人名片', icon: '9' },
-      { label: '文件', icon: '10' },
-      { label: '卡券', icon: '11' },
-    ]]
+    utilList: [
+      [{
+          label: '照片',
+          icon: '1',
+          action: 'media'
+        },
+        {
+          label: '拍摄',
+          icon: '2',
+          action: 'media'
+        },
+        {
+          label: '视频通话',
+          icon: '3',
+          action: 'videoChat'
+        },
+        {
+          label: '位置',
+          icon: '4'
+        },
+        {
+          label: '红包',
+          icon: '5',
+          action: 'redPack'
+        },
+        {
+          label: '转账',
+          icon: '6',
+          action: 'transfer'
+        },
+        {
+          label: '语音输入',
+          icon: '7'
+        },
+        {
+          label: '收藏',
+          icon: '8'
+        },
+      ],
+      [{
+          label: '个人名片',
+          icon: '9'
+        },
+        {
+          label: '文件',
+          icon: '10'
+        },
+        {
+          label: '卡券',
+          icon: '11'
+        },
+      ]
+    ]
   },
 
   onLoad: function (options) {
@@ -38,7 +84,9 @@ Page({
     let chatListItem = chatList.find((item) => item.id == this.id);
     if (!chatList || !chatListItem) {
       toast.fail('聊天不存在，请重新创建');
-      delay(() => { to('/pages/index/index', 'reLaunch'); }, 1500);
+      delay(() => {
+        to('/pages/index/index', 'reLaunch');
+      }, 1500);
       return;
     }
 
@@ -53,7 +101,9 @@ Page({
 
     this.data.chatDetail.record = this.formatRecord(this.data.chatDetail.record);
 
-    this.setData({ chatDetail: this.data.chatDetail }, () => {
+    this.setData({
+      chatDetail: this.data.chatDetail
+    }, () => {
       this.scrollToBottom();
     });
     this.refreshStorage();
@@ -61,7 +111,9 @@ Page({
 
   previewImage(e) {
     let item = dataset(e, 'item');
-    let urls = this.data.chatDetail.record.filter((item) => item.type == 'media' && item.media).map((item) => { return item.media[0]; });
+    let urls = this.data.chatDetail.record.filter((item) => item.type == 'media' && item.media).map((item) => {
+      return item.media[0];
+    });
     wx.previewImage({
       current: item.media[0],
       urls,
@@ -69,19 +121,27 @@ Page({
   },
 
   handleSwiperChange(e) {
-    this.setData({ swiperIndex: e.detail.current });
+    this.setData({
+      swiperIndex: e.detail.current
+    });
   },
 
   showToolBox() {
-    this.setData({ $showToolBox: true });
+    this.setData({
+      $showToolBox: true
+    });
   },
 
   handleHideUtilBlock() {
-    this.setData({ $showUtilBlock: false });
+    this.setData({
+      $showUtilBlock: false
+    });
   },
 
   handleShowUtilBlock() {
-    this.setData({ $showUtilBlock: !this.data.$showUtilBlock });
+    this.setData({
+      $showUtilBlock: !this.data.$showUtilBlock
+    });
   },
 
   handleUtilAction(e) {
@@ -91,17 +151,27 @@ Page({
       return;
     }
     this.toolBox.showActionInChatDetail(2);
-    this.toolBox.chatDetailSF.setFormData({ type: action });
+    this.toolBox.chatDetailSF.setFormData({
+      type: action
+    });
   },
 
   handleToolBoxChange(e) {
     let change = e.detail.change;
     let data = e.detail.data;
     switch (change) {
-      case 'editChat': this.handleEditChat(data); break;
-      case 'addChatDetail': this.handleAddChatDetail(data); break;
-      case 'editChatDetail': this.handleEditChatDetail(data); break;
-      case 'clearAll': this.handleClearAll(); break;
+      case 'editChat':
+        this.handleEditChat(data);
+        break;
+      case 'addChatDetail':
+        this.handleAddChatDetail(data);
+        break;
+      case 'editChatDetail':
+        this.handleEditChatDetail(data);
+        break;
+      case 'clearAll':
+        this.handleClearAll();
+        break;
     }
   },
 
@@ -110,7 +180,9 @@ Page({
     this.data.chatDetail.groupUserName = data.groupUserName;
     this.data.chatDetail.customBackground = data.customBackground;
     this.data.chatDetail.badge = data.badge;
-    this.setData({ chatDetail: this.data.chatDetail });
+    this.setData({
+      chatDetail: this.data.chatDetail
+    });
     this.refreshStorage();
   },
 
@@ -119,17 +191,24 @@ Page({
       toast.fail('请你叭要发送空白消息');
       return;
     }
+    let lastRecord = this.data.chatDetail?.record?.length ? this.data.chatDetail.record[this.data.chatDetail.record.length - 1] : null;
     let data = {
-      side: 'right',
+      side: lastRecord?.side || 'right',
       type: 'text',
       text: e.detail.value,
+      header: lastRecord?.header || null,
+      name: lastRecord?.name || null,
     };
     this.handleAddChatDetail(data);
-    this.setData({ inputValue: '' });
+    this.setData({
+      inputValue: ''
+    });
   },
 
   getImageSize(src) {
-    return wx.getImageInfo({ src });
+    return wx.getImageInfo({
+      src
+    });
   },
 
   formatImageSize(imageSize) {
@@ -160,7 +239,10 @@ Page({
     if (fixedWidth < minSize) fixedWidth = minSize;
     if (fixedHeight < minSize) fixedHeight = minSize;
 
-    return { width: fixedWidth, height: fixedHeight };
+    return {
+      width: fixedWidth,
+      height: fixedHeight
+    };
   },
 
   formatRecord(record) {
@@ -182,11 +264,22 @@ Page({
       await Promise.all(data.media.map(async (item) => {
         const id = getId();
         let imageInfo = await this.getImageSize(item);
-        pushData.push({ ...data, id, media: [item], size: { width: imageInfo.width, height: imageInfo.height } });
+        pushData.push({
+          ...data,
+          id,
+          media: [item],
+          size: {
+            width: imageInfo.width,
+            height: imageInfo.height
+          }
+        });
       }));
     } else {
       const id = getId();
-      pushData = [{ ...data, id }];
+      pushData = [{
+        ...data,
+        id
+      }];
     }
 
     // 插入记录
@@ -213,7 +306,9 @@ Page({
         .select("#scrollWrapper")
         .boundingClientRect()
         .exec((res) => {
-          this.setData({ scrollTop: res[0].height || 2147483647 });
+          this.setData({
+            scrollTop: res[0].height || 2147483647
+          });
         });
     });
   },
@@ -222,7 +317,10 @@ Page({
 
     if (item.type == 'media') {
       let imageInfo = await this.getImageSize(item.media[0]);
-      item.size = { width: imageInfo.width, height: imageInfo.height };
+      item.size = {
+        width: imageInfo.width,
+        height: imageInfo.height
+      };
     }
 
     let index = this.data.chatDetail.record.findIndex((citem) => citem.id == item.id);
@@ -231,7 +329,9 @@ Page({
 
     this.data.chatDetail.record = this.formatRecord(this.data.chatDetail.record);
 
-    this.setData({ chatDetail: this.data.chatDetail });
+    this.setData({
+      chatDetail: this.data.chatDetail
+    });
     toast.fail('编辑成功');
   },
 
@@ -243,34 +343,52 @@ Page({
       itemList: ['上移', '下移', '编辑', '删除'],
     }).then((res) => {
       switch (res.tapIndex) {
-        case 0: this.handleUpper(index); break;
-        case 1: this.handleLower(index); break;
-        case 2: this.toolBox.handleEditChatDetail(item); break;
-        case 3: this.handleDeleteChatDetail(index); break;
+        case 0:
+          this.handleUpper(index);
+          break;
+        case 1:
+          this.handleLower(index);
+          break;
+        case 2:
+          this.toolBox.handleEditChatDetail(item);
+          break;
+        case 3:
+          this.handleDeleteChatDetail(index);
+          break;
       }
     });
   },
 
   // 上移聊天
   handleUpper(index) {
-    if (index == 0) { toast.fail('已经是第一位，无法上移'); return; }
+    if (index == 0) {
+      toast.fail('已经是第一位，无法上移');
+      return;
+    }
     let record = this.data.chatDetail.record;
     let spliceItem = record[index - 1];
     record[index - 1] = record[index];
     record[index] = spliceItem;
     this.refreshStorage();
-    this.setData({ [`chatDetail.record`]: record });
+    this.setData({
+      [`chatDetail.record`]: record
+    });
   },
 
   // 下移聊天
   handleLower(index) {
     let record = this.data.chatDetail.record;
-    if (index == record.length - 1) { toast.fail('已经是最后一位，无法下移'); return; }
+    if (index == record.length - 1) {
+      toast.fail('已经是最后一位，无法下移');
+      return;
+    }
     let spliceItem = record[index + 1];
     record[index + 1] = record[index];
     record[index] = spliceItem;
     this.refreshStorage();
-    this.setData({ [`chatDetail.record`]: record });
+    this.setData({
+      [`chatDetail.record`]: record
+    });
   },
 
   // 删除聊天
@@ -278,7 +396,9 @@ Page({
     let record = this.data.chatDetail.record;
     record.splice(index, 1);
     this.refreshStorage();
-    this.setData({ [`chatDetail.record`]: record }, () => toast.fail('已删除'));
+    this.setData({
+      [`chatDetail.record`]: record
+    }, () => toast.fail('已删除'));
   },
 
   handleClearAll() {
@@ -288,7 +408,9 @@ Page({
     }).then((res) => {
       if (res.confirm) {
         this.data.chatDetail.record = [];
-        this.setData({ chatDetail: this.data.chatDetail });
+        this.setData({
+          chatDetail: this.data.chatDetail
+        });
         this.refreshStorage();
         toast.fail('已清空所有聊天记录');
       }

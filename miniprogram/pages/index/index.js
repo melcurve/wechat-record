@@ -2,7 +2,7 @@
 import { sharePage } from "../../utils/common";
 Page({
   data: {
-    tabIndex: 3
+    tabIndex: 0
   },
 
   onLoad() {

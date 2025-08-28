@@ -90,6 +90,7 @@ Component({
     // 更新聊天
     handleEditChatList(item) {
       let index = this.data.chatList.findIndex((citem) => citem.id == item.id);
+      item.displayDate = wechatDate(item.date, item.time);
       this.data.chatList[index] = item;
       refreshChatItemStorage(this.data.chatList);
       this.refreshBadge();

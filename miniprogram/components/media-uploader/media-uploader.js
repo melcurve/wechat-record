@@ -1,5 +1,8 @@
 // components/media-uploader/media-uploader.js
-import { toast, dataset } from "../../utils/common";
+import {
+  toast,
+  dataset
+} from "../../utils/common";
 Component({
   properties: {
     // 用于表单使用的值
@@ -32,7 +35,13 @@ Component({
     // 监听数值变化
     ['value'](value) {
       // 将数值格式化并赋值到list数组
-      if (value) this.setData({ list: value.map((item) => { return { url: item }; }) });
+      if (value) this.setData({
+        list: value.map((item) => {
+          return {
+            url: item
+          };
+        })
+      });
     }
   },
 
@@ -42,7 +51,9 @@ Component({
       const chatList = wx.getStorageSync('CHAT_LIST') || [];
       const chatDetail = wx.getStorageSync('CHAT_DETAIL') || {};
       const historyList = [];
-      chatList.map((item) => { if (item.header) historyList.push(...item.header); });
+      chatList.map((item) => {
+        if (item.header) historyList.push(...item.header);
+      });
       for (let key in chatDetail) {
         let item = chatDetail[key];
         item.record.map((ritem) => {
@@ -50,8 +61,16 @@ Component({
           if (ritem.media) historyList.push(ritem.media);
         });
       }
+      let historyListFlat = [];
+      historyList.map((mitem) => {
+        if (typeof mitem != 'string') {
+          historyListFlat.push(...mitem)
+        } else {
+          historyListFlat.push(mitem)
+        }
+      })
       this.setData({
-        historyList: [...new Set(historyList)],
+        historyList: [...new Set(historyListFlat)],
         $showHistoryPopup: true
       });
     },
@@ -60,7 +79,9 @@ Component({
     handleSelectHistory(e) {
       let item = dataset(e, 'item');
       this.add([item]);
-      this.setData({ $showHistoryPopup: false });
+      this.setData({
+        $showHistoryPopup: false
+      });
       this.historyPopup.handleClose();
     },
 
@@ -76,11 +97,11 @@ Component({
       }
 
       const count = maxLength == 1 ? 1 : maxLength - list.length;
-      wx.chooseImage({
+      wx.chooseMedia({
         count: count >= 9 ? 9 : count,
         sizeType: ['compressed'],
       }).then((res) => {
-        this.add(res.tempFilePaths);
+        this.add(res.tempFiles);
       });
     },
 
@@ -88,9 +109,17 @@ Component({
     add(data) {
       const maxLength = this.data.maxLength || '';
       // 更新list操作
-      if (maxLength == 1) this.data.list = [{ url: data[0] }];
-      else this.data.list = [...this.data.list, ...data.map((item) => { return { url: item }; })];
-      this.setData({ list: this.data.list }, () => this.change());
+      if (maxLength == 1) this.data.list = [{
+        url: data[0].tempFilePath
+      }];
+      else this.data.list = [...this.data.list, ...data.map((item) => {
+        return {
+          url: item.tempFilePath
+        };
+      })];
+      this.setData({
+        list: this.data.list
+      }, () => this.change());
     },
 
     // 删除
@@ -112,7 +141,9 @@ Component({
     preview(e) {
       const item = dataset(e, 'item');
       const current = item.url;
-      const urls = this.data.list.map((vitem) => { return vitem.url; });
+      const urls = this.data.list.map((vitem) => {
+        return vitem.url;
+      });
       wx.previewImage({
         current,
         urls,
@@ -121,7 +152,11 @@ Component({
 
     // 变更回调
     change() {
-      this.triggerEvent('change', { value: this.data.list.map((item) => { return item.url; }) });
+      this.triggerEvent('change', {
+        value: this.data.list.map((item) => {
+          return item.url;
+        })
+      });
     }
   }
 });
