@@ -1,6 +1,6 @@
 {
   "condition": {},
-  "libVersion": "3.9.3",
+  "libVersion": "development",
   "projectname": "WechatRecord",
   "setting": {
     "urlCheck": true,

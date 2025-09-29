@@ -14,7 +14,7 @@
     "autoAudits": false,
     "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
-    "uglifyFileName": false,
+    "uglifyFileName": true,
     "checkInvalidKey": true,
     "checkSiteMap": false,
     "uploadWithSourceMap": true,
@@ -39,10 +39,12 @@
     "minifyWXML": true,
     "localPlugins": false,
     "disableUseStrict": false,
-    "useCompilerPlugins": ["less"],
-    "condition": false,
-    "swc": false,
-    "disableSWC": true
+    "useCompilerPlugins": [
+      "less"
+    ],
+    "condition": true,
+    "swc": true,
+    "disableSWC": false
   },
   "appid": "wxb66c895864c8e1f6",
   "projectname": "WechatRecord",

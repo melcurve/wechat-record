@@ -12,7 +12,9 @@ import {
 import {
   themeList
 } from "../assets/theme";
+
 const dateFormat = format;
+const fs = wx.getFileSystemManager();
 
 let app, version, config;
 export const onLaunchAction = (_app, _config) => {
@@ -51,7 +53,7 @@ export const handleUpdate = () => {
 export const handleStorage = () => {
   let _version = db.get("VERSION");
   let accountInfo = wx.getAccountInfoSync();
-  version = accountInfo.miniProgram.version || '';
+  version = accountInfo.miniProgram.version || '1.0.0';
   // 如果clearFlag为true并且当前版本号不等于缓存版本号，则清除一下缓存
   if (clearFlag && _version && _version != version) resetStorage();
   else setConstStorage();
@@ -910,20 +912,17 @@ export function isInclude(value, include) {
 
 export const db = {
   init() {
-    const fs = wx.getFileSystemManager();
     try {
       fs.accessSync(dbPath);
     } catch (error) {
-      fs.writeFileSync(dbPath, JSON.stringify({}), 'utf-8');
+      fs.writeFileSync(dbPath, JSON.stringify({}), 'utf8');
     }
   },
 
   get(key) {
     try {
-      const fs = wx.getFileSystemManager();
-      let file = fs.readFileSync(dbPath);
-      const decoder = new TextDecoder('utf-8');
-      const data = JSON.parse(decoder.decode(file));
+      let file = fs.readFileSync(dbPath, 'utf8');
+      let data = JSON.parse(file);
       return key ? data[key] : data;
     } catch (error) {
       console.error('DB GET', error);
@@ -933,12 +932,11 @@ export const db = {
 
   set(key, value) {
     try {
-      const fs = wx.getFileSystemManager();
-      const data = db.get();
+      let data = db.get();
       if (value === 'CLEAR_FLAG') data = {};
       else if (value === 'DELETE_FLAG') delete data[key];
       else data[key] = value;
-      fs.writeFileSync(dbPath, JSON.stringify(data), 'utf-8');
+      fs.writeFileSync(dbPath, JSON.stringify(data), 'utf8');
     } catch (error) {
       console.error('DB SET', error);
     }
