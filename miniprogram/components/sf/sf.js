@@ -1,5 +1,9 @@
 // components/sf/sf.js
-import { valid, dataset } from "../../utils/common";
+import {
+  valid,
+  dataset,
+  db
+} from "../../utils/common";
 Component({
   properties: {
     // 表单配置
@@ -21,15 +25,17 @@ Component({
   lifetimes: {
     attached() {
       this.handleHistoryText();
-      this.handleInitValue().then(() => { this.change(); });
+      this.handleInitValue().then(() => {
+        this.change();
+      });
     },
   },
 
   methods: {
     // 从缓存中获取历史文本
     handleHistoryText() {
-      const chatList = wx.getStorageSync('CHAT_LIST') || [];
-      const chatDetail = wx.getStorageSync('CHAT_DETAIL') || {};
+      const chatList = db.get('CHAT_LIST') || [];
+      const chatDetail = db.get('CHAT_DETAIL') || {};
       const historyList = [];
       chatList.map((item) => {
         if (item.name) historyList.push(item.name);
@@ -65,7 +71,9 @@ Component({
             let item = schema[key];
 
             // 如果有默认值default则将默认值赋值给value(仅第一次初始化有效)
-            if (!valid(item.value) && valid(item.default) && !this.data.hasInit) { item.value = item.default; }
+            if (!valid(item.value) && valid(item.default) && !this.data.hasInit) {
+              item.value = item.default;
+            }
 
             if (valid(item.value) && item.enum) {
               // 处理下拉selector value
@@ -96,7 +104,13 @@ Component({
               }
             }
           }
-          this.setData({ schema, hasInit: true }, () => { this.handleVisible(); resolve(); });
+          this.setData({
+            schema,
+            hasInit: true
+          }, () => {
+            this.handleVisible();
+            resolve();
+          });
         }
       });
     },
@@ -122,7 +136,10 @@ Component({
               let vitem = item.visibleIf[vkey];
 
               // 如果表单项中不存在此key则返回错误
-              if (!schema.hasOwnProperty(vkey)) { console.error(`找不到key:${vkey}`); return; }
+              if (!schema.hasOwnProperty(vkey)) {
+                console.error(`找不到key:${vkey}`);
+                return;
+              }
 
               // 如果visibleIf中的对象值为一个方法，则直接运行这个方法
               if (typeof vitem == 'function') {
@@ -142,7 +159,9 @@ Component({
           item._show = true;
         }
       }
-      this.setData({ schema });
+      this.setData({
+        schema
+      });
     },
 
     // 设置表单值
@@ -151,7 +170,12 @@ Component({
       for (let key in data) {
         if (schema[key]) schema[key].value = data[key];
       }
-      this.setData({ schema }, () => { this.change(); this.handleInitValue(); });
+      this.setData({
+        schema
+      }, () => {
+        this.change();
+        this.handleInitValue();
+      });
     },
 
     // 清空表单值
@@ -161,7 +185,12 @@ Component({
         let item = schema[key];
         item.value = !ignoreDefault && valid(item.default) ? item.default : null;
       }
-      this.setData({ schema }, () => { this.change(); this.handleInitValue(); });
+      this.setData({
+        schema
+      }, () => {
+        this.change();
+        this.handleInitValue();
+      });
     },
 
     // 表单项变更后更新值
@@ -178,13 +207,20 @@ Component({
       }
       this.setData({
         [`schema.${key}.value`]: value
-      }, () => { this.change(key, value); this.handleInitValue(); });
+      }, () => {
+        this.change(key, value);
+        this.handleInitValue();
+      });
     },
 
     // 表单变更回调
     change(key, value) {
       let formData = this.getFormData();
-      this.triggerEvent('change', { key, value, formData });
+      this.triggerEvent('change', {
+        key,
+        value,
+        formData
+      });
     },
 
     // 获取表单值

@@ -1,7 +1,8 @@
 // components/media-uploader/media-uploader.js
 import {
   toast,
-  dataset
+  dataset,
+  db
 } from "../../utils/common";
 Component({
   properties: {
@@ -48,8 +49,8 @@ Component({
   methods: {
     // 显示历史记录图片，从缓存中获取
     history() {
-      const chatList = wx.getStorageSync('CHAT_LIST') || [];
-      const chatDetail = wx.getStorageSync('CHAT_DETAIL') || {};
+      const chatList = db.get('CHAT_LIST') || [];
+      const chatDetail = db.get('CHAT_DETAIL') || {};
       const historyList = [];
       chatList.map((item) => {
         if (item.header) historyList.push(...item.header);
@@ -101,8 +102,8 @@ Component({
         count: count >= 9 ? 9 : count,
         sizeType: ['compressed'],
       }).then((res) => {
-        this.add(res.tempFiles);
-      });
+        this.add(res.tempFiles.map((mitem) => mitem.tempFilePath));
+      }).catch(() => {});
     },
 
     // 添加照片
@@ -110,11 +111,11 @@ Component({
       const maxLength = this.data.maxLength || '';
       // 更新list操作
       if (maxLength == 1) this.data.list = [{
-        url: data[0].tempFilePath
+        url: data[0]
       }];
       else this.data.list = [...this.data.list, ...data.map((item) => {
         return {
-          url: item.tempFilePath
+          url: item
         };
       })];
       this.setData({

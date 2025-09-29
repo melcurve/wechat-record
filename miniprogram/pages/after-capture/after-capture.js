@@ -1,8 +1,14 @@
+import {
+  dataset,
+  toast
+} from "../../utils/common";
+
 // pages/after-capture/after-capture.js
 Page({
 
   data: {
-
+    unfixedImage: '',
+    fixedImage: ''
   },
 
   onLoad: function (options) {
@@ -14,7 +20,12 @@ Page({
       count: 1,
       sizeType: ['original'],
     }).then((res) => {
+      toast.loading();
+
       let path = res.tempFiles[0].tempFilePath;
+      this.setData({
+        unfixedImage: path
+      })
 
       // 获取图片信息
       wx.getImageInfo({
@@ -62,32 +73,13 @@ Page({
               data: wx.base64ToArrayBuffer(base64Data),
               encoding: 'binary',
               success: () => {
-                // 保存到相册
-                wx.saveImageToPhotosAlbum({
-                  filePath: tempPath,
-                  success: () => {
-                    wx.showToast({
-                      title: '保存成功',
-                      icon: 'success'
-                    });
-                    // 删除临时文件
-                    fs.unlink({
-                      filePath: tempPath,
-                      fail: (err) => {
-                        console.error('删除临时文件失败', err);
-                      }
-                    });
-                  },
-                  fail: (err) => {
-                    console.error('保存失败', err);
-                    wx.showToast({
-                      title: '保存失败',
-                      icon: 'none'
-                    });
-                  }
-                });
+                this.setData({
+                  fixedImage: tempPath
+                })
+                toast.hide();
               },
               fail: (err) => {
+                toast.fail('写入文件失败');
                 console.error('写入文件失败', err);
               }
             });
@@ -97,12 +89,45 @@ Page({
           img.src = path;
         },
         fail: (err) => {
+          toast.fail('获取图片信息失败');
           console.error('获取图片信息失败', err);
         }
       });
-    }).catch((err) => {
-      console.error('选择图片失败', err);
+    }).catch((err) => {});
+  },
+
+  handleSave() {
+    // 保存到相册
+    wx.saveImageToPhotosAlbum({
+      filePath: this.data.fixedImage,
+      success: () => {
+        toast.fail('保存成功');
+        // 删除临时文件
+        const fs = wx.getFileSystemManager();
+        fs.unlink({
+          filePath: this.data.fixedImage,
+          fail: (err) => {
+            console.error('删除临时文件失败', err);
+          }
+        });
+      },
+      fail: (err) => {
+        toast.fail('保存失败');
+        console.error('保存失败', err);
+      }
     });
+  },
+
+  handlePreview(e) {
+    wx.previewMedia({
+      sources: [this.data.unfixedImage, this.data.fixedImage].map((mitem) => {
+        return {
+          url: mitem,
+          type: 'image'
+        }
+      }),
+      current: Number(dataset(e, 'index')),
+    })
   },
 
   onShareAppMessage() {

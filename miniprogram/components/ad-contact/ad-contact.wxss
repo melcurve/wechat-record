@@ -1,6 +1,0 @@
-.ad-contact {
-  width: 100%;
-  height: auto;
-  padding: 32rpx;
-  box-sizing: border-box;
-}

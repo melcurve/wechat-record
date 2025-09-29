@@ -1,14 +1,24 @@
 // common.js
-import { clearFlag } from "./config";
-import { hexMD5 } from "./md5";
-import { format } from 'date-fns';
-import { themeList } from "../assets/theme";
+import {
+  clearFlag,
+  dbPath
+} from "./config";
+import {
+  hexMD5
+} from "./md5";
+import {
+  format
+} from 'date-fns';
+import {
+  themeList
+} from "../assets/theme";
 const dateFormat = format;
 
 let app, version, config;
 export const onLaunchAction = (_app, _config) => {
   app = _app;
   config = _config;
+  db.init();
   initGlobal();
   setTheme();
   setDevice();
@@ -39,7 +49,7 @@ export const handleUpdate = () => {
  * 缓存相关
  */
 export const handleStorage = () => {
-  let _version = wx.getStorageSync("VERSION");
+  let _version = db.get("VERSION");
   let accountInfo = wx.getAccountInfoSync();
   version = accountInfo.miniProgram.version || '';
   // 如果clearFlag为true并且当前版本号不等于缓存版本号，则清除一下缓存
@@ -51,14 +61,14 @@ export const handleStorage = () => {
  * 设置缓存
  */
 export const setConstStorage = () => {
-  wx.setStorageSync("VERSION", version);
+  db.set("VERSION", version);
 };
 
 /**
  * 重置缓存
  */
 export const resetStorage = (keepPage) => {
-  wx.clearStorageSync();
+  db.clear();
   setConstStorage();
   if (!keepPage) to("/pages/index/index", "reLaunch");
 };
@@ -106,7 +116,7 @@ export const setDevice = () => {
 export const setTheme = (theme) => {
   let refreshFlag = false;
   if (theme) refreshFlag = true;
-  else theme = wx.getStorageSync('THEME') || 'defaultTheme';
+  else theme = db.get('THEME') || 'wechatTheme';
   app.globalData.theme = {
     key: theme,
     data: themeList[theme],
@@ -118,7 +128,7 @@ export const setTheme = (theme) => {
  * 刷新主题缓存
  */
 export const refreshThemeStorage = (reLaunch) => {
-  wx.setStorageSync('THEME', app.globalData.theme.key);
+  db.set('THEME', app.globalData.theme.key);
   // if (reLaunch) {
   //   to('/pages/index/index', 'reLaunch');
   // }
@@ -779,7 +789,6 @@ export function delay(callback, delay) {
 }
 
 export function wechatDate(date, time) {
-  console.log('returnDate')
   let returnDate = date;
   const handleDate = (fullDate) => {
     let weekDay = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -825,7 +834,7 @@ export function randomNumber(min, max) {
 export function refreshChatItemStorage(chatList) {
 
   // 先遍历chatDetail缓存，如果chatDetail中的id不存在于chatList，则表示要删除此chatDetail
-  let chatDetail = wx.getStorageSync('CHAT_DETAIL') || {};
+  let chatDetail = db.get('CHAT_DETAIL') || {};
 
   // 待删除的chatDetail id
   let deleteChatDetailList = [];
@@ -847,8 +856,8 @@ export function refreshChatItemStorage(chatList) {
   });
 
   // 更新缓存
-  wx.setStorageSync('CHAT_LIST', chatList);
-  wx.setStorageSync('CHAT_DETAIL', chatDetail);
+  db.set('CHAT_LIST', chatList);
+  db.set('CHAT_DETAIL', chatDetail);
 
   isStorageLimit();
 }
@@ -859,8 +868,8 @@ export function isStorageLimit() {
     return JSON.stringify(string).replace(/[^\x00-\xff]/g, 'xx').length;
   };
 
-  let chatList = wx.getStorageSync('CHAT_LIST') || [];
-  let chatDetail = wx.getStorageSync('CHAT_DETAIL') || {};
+  let chatList = db.get('CHAT_LIST') || [];
+  let chatDetail = db.get('CHAT_DETAIL') || {};
 
   if (getSize(chatList) >= 1024 || getSize(chatDetail) >= 1024) {
     wx.showModal({
@@ -897,4 +906,49 @@ export function isInclude(value, include) {
     }
   }
   return false;
+}
+
+export const db = {
+  init() {
+    const fs = wx.getFileSystemManager();
+    try {
+      fs.accessSync(dbPath);
+    } catch (error) {
+      fs.writeFileSync(dbPath, JSON.stringify({}), 'utf-8');
+    }
+  },
+
+  get(key) {
+    try {
+      const fs = wx.getFileSystemManager();
+      let file = fs.readFileSync(dbPath);
+      const decoder = new TextDecoder('utf-8');
+      const data = JSON.parse(decoder.decode(file));
+      return key ? data[key] : data;
+    } catch (error) {
+      console.error('DB GET', error);
+      return key ? null : {};
+    }
+  },
+
+  set(key, value) {
+    try {
+      const fs = wx.getFileSystemManager();
+      const data = db.get();
+      if (value === 'CLEAR_FLAG') data = {};
+      else if (value === 'DELETE_FLAG') delete data[key];
+      else data[key] = value;
+      fs.writeFileSync(dbPath, JSON.stringify(data), 'utf-8');
+    } catch (error) {
+      console.error('DB SET', error);
+    }
+  },
+
+  remove(key) {
+    db.set(key, 'DELETE_FLAG');
+  },
+
+  clear() {
+    db.set(null, 'CLEAR_FLAG')
+  }
 }

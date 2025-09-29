@@ -1,4 +1,0 @@
-@import '/styles/common.wxss';
-.main {
-  background-color: white;
-}

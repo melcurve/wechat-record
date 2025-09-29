@@ -3,6 +3,17 @@
 <nav-bar title="截屏处理" border back></nav-bar>
 
 <view class="main flex-column align-center justify-center">
-  <view class="desc">在这里上传你的截屏，可以帮你隐藏右上角的小程序按钮</view>
+  <view class="process-block flex-row justify-center">
+    <view class="item flex-column align-center" data-index="0" bind:tap="handlePreview">
+      <image class="cover" src="{{unfixedImage||'/images/test.png'}}" mode="heightFix" />
+      <view class="text">未处理</view>
+    </view>
+    <view class="item flex-column align-center" data-index="1" bind:tap="handlePreview">
+      <image class="cover" src="{{fixedImage||'/images/test.png'}}" mode="heightFix" />
+      <view class="text">已处理</view>
+    </view>
+  </view>
+  <view class="desc">在这里上传你的截屏，可以帮你隐藏右上角的小程序按钮，处理后你可以长按转发给好友</view>
   <button type="primary" bind:tap="handleSelect">上传并处理</button>
+  <button wx:if="{{fixedImage}}" style="margin-top: 12rpx;" type="primary" bind:tap="handleSave">保存到相册</button>
 </view>

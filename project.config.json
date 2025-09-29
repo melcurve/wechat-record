@@ -34,19 +34,19 @@
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true,
+    "minifyless": true,
     "compileWorklet": false,
     "minifyWXML": true,
     "localPlugins": false,
     "disableUseStrict": false,
-    "useCompilerPlugins": false,
+    "useCompilerPlugins": ["less"],
     "condition": false,
     "swc": false,
     "disableSWC": true
   },
   "appid": "wxb66c895864c8e1f6",
   "projectname": "WechatRecord",
-  "libVersion": "2.18.0",
+  "libVersion": "3.9.3",
   "condition": {
     "search": {
       "list": []

@@ -1,5 +1,9 @@
 // miniprogram/subPack-a/pages/friend-circle/friend-circle.js
-import { handleTop, sharePage } from "../../../utils/common";
+import {
+  db,
+  handleTop,
+  sharePage
+} from "../../../utils/common";
 const app = getApp();
 Page({
 
@@ -11,7 +15,7 @@ Page({
   },
 
   onLoad() {
-    let friendCircleDetail = wx.getStorageSync('FRIEND_CIRCLE');
+    let friendCircleDetail = db.get('FRIEND_CIRCLE');
     if (!friendCircleDetail) {
       friendCircleDetail = {
         banner: '',
@@ -20,36 +24,55 @@ Page({
         record: [],
       };
     }
-    this.setData({ friendCircleDetail });
+    this.setData({
+      friendCircleDetail
+    });
     this.refreshFriendCircleStorage();
   },
 
   // 显示工具箱
   showToolBox() {
-    this.setData({ $showToolBox: true });
+    this.setData({
+      $showToolBox: true
+    });
   },
 
   handleToolBoxChange(e) {
     let change = e.detail.change;
     let data = e.detail.data;
     switch (change) {
-      case 'friendCircle': this.handleEditFriendCircle(data); break;
-      case 'clearAll': this.handleClearAll(); break;
+      case 'friendCircle':
+        this.handleEditFriendCircle(data);
+        break;
+      case 'clearAll':
+        this.handleClearAll();
+        break;
     }
   },
 
   handleEditFriendCircle(data) {
     let detail = this.data.friendCircleDetail;
-    this.setData({ friendCircleDetail: { ...detail, ...data } }, () => { this.refreshFriendCircleStorage(); });
+    this.setData({
+      friendCircleDetail: {
+        ...detail,
+        ...data
+      }
+    }, () => {
+      this.refreshFriendCircleStorage();
+    });
   },
 
   handleClearAll() {
     this.data.friendCircleDetail.record = [];
-    this.setData({ friendCircleDetail: this.data.friendCircleDetail }, () => { this.refreshFriendCircleStorage(); });
+    this.setData({
+      friendCircleDetail: this.data.friendCircleDetail
+    }, () => {
+      this.refreshFriendCircleStorage();
+    });
   },
 
   refreshFriendCircleStorage() {
-    wx.setStorageSync('FRIEND_CIRCLE', this.data.friendCircleDetail);
+    db.set('FRIEND_CIRCLE', this.data.friendCircleDetail);
   },
 
   onPageScroll(e) {

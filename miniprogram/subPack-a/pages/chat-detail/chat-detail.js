@@ -5,7 +5,8 @@ import {
   dataset,
   getId,
   valid,
-  to
+  to,
+  db
 } from "../../../utils/common";
 const app = getApp();
 Page({
@@ -80,7 +81,7 @@ Page({
 
   getDetail() {
     // 判断chatList中是否存在此id
-    const chatList = wx.getStorageSync('CHAT_LIST') || [];
+    const chatList = db.get('CHAT_LIST') || [];
     let chatListItem = chatList.find((item) => item.id == this.id);
     if (!chatList || !chatListItem) {
       toast.fail('聊天不存在，请重新创建');
@@ -91,7 +92,7 @@ Page({
     }
 
     // 获取聊天详细信息
-    const storage = wx.getStorageSync('CHAT_DETAIL') || {};
+    const storage = db.get('CHAT_DETAIL') || {};
 
     if (storage[this.id]) this.data.chatDetail = storage[this.id];
     else this.data.chatDetail = {
@@ -418,9 +419,9 @@ Page({
   },
 
   refreshStorage() {
-    const storage = wx.getStorageSync('CHAT_DETAIL') || {};
+    const storage = db.get('CHAT_DETAIL') || {};
     storage[this.id] = this.data.chatDetail;
-    wx.setStorageSync('CHAT_DETAIL', storage);
+    db.set('CHAT_DETAIL', storage);
   },
 
   onShareAppMessage() {

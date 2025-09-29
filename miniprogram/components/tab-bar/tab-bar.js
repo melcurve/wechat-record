@@ -1,5 +1,5 @@
 // components/tab-bar/tab-bar.js
-import { dataset } from "../../utils/common";
+import { dataset, db } from "../../utils/common";
 const app = getApp();
 Component({
   properties: {
@@ -33,7 +33,7 @@ Component({
     // 刷新红点
     refreshBadge() {
       let badge = [0, 0, 0, 0];
-      const chatList = wx.getStorageSync('CHAT_LIST') || [];
+      const chatList = db.get('CHAT_LIST') || [];
       chatList.map((item) => {
         if (item.badge) badge[0] += Number(item.badge);
       });

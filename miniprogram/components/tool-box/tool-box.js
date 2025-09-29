@@ -8,7 +8,8 @@ const {
   valid,
   hideAll,
   delay,
-  to
+  to,
+  db
 } = require("../../utils/common");
 Component({
   properties: {
@@ -468,7 +469,7 @@ Component({
             }, () => {
               // 获取聊天弹窗组件对象
               this.discoverySF = this.selectComponent('#discoverySF');
-              let data = wx.getStorageSync('DISCOVERY_LIST') || {};
+              let data = db.get('DISCOVERY_LIST') || {};
               for (let key in data) {
                 data[key] = !!data[key];
               }

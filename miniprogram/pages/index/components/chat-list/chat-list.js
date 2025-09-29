@@ -1,5 +1,5 @@
 // pages/index/components/chat-list/chat-list.js
-import { wechatDate, dataset, toast, to, getId, refreshChatItemStorage } from "../../../../utils/common";
+import { wechatDate, dataset, toast, to, getId, refreshChatItemStorage, db } from "../../../../utils/common";
 const app = getApp();
 Component({
   properties: {},
@@ -22,7 +22,7 @@ Component({
       this.toolBox = this.selectComponent('#toolBox');
 
       // 从缓存中获取聊天列表
-      let chatList = wx.getStorageSync('CHAT_LIST') || [];
+      let chatList = db.get('CHAT_LIST') || [];
 
       this.setData({ chatList });
     }

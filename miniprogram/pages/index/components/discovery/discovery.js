@@ -1,6 +1,6 @@
 // pages/index/components/discovery/discovery.js
 import { discoveryList } from "../../../../assets/discovery-list";
-import { dataset, deepClone, to, toast } from "../../../../utils/common";
+import { dataset, db, deepClone, to, toast } from "../../../../utils/common";
 const app = getApp();
 Component({
   properties: {},
@@ -24,7 +24,7 @@ Component({
       // 获取toolBox组件对象
       this.toolBox = this.selectComponent('#toolBox');
 
-      let showList = wx.getStorageSync('DISCOVERY_LIST') || {};
+      let showList = db.get('DISCOVERY_LIST') || {};
 
       this.getData(showList);
 
@@ -80,7 +80,7 @@ Component({
     refreshDiscoveryListStorage() {
       let showList = {};
       this.data.discoveryList.map((item) => { showList[`${item.id}`] = item.show; });
-      wx.setStorageSync('DISCOVERY_LIST', showList);
+      db.set('DISCOVERY_LIST', showList);
     },
   }
 });
